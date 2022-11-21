@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Simple Wallet</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="entry_list_fragment_label">Your entries</string>
+    <string name="entry_details_fragment_label">Details</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!-- Strings for add_entry_dialog -->
+    <string name="add_entry_dialog_title">Description</string>
+    <string name="add_entry_dialog_text_description">Description</string>
+    <string name="add_entry_dialog_text_value">Value</string>
+    <string name="add_entry_dialog_text_date">Date</string>
+    <string name="add_entry_dialog_radio_gain">Gain</string>
+    <string name="add_entry_dialog_radio_expense">Expense</string>
+
+    <!-- String for removing entry -->
+    <string name="remove_entry_toast">Removed</string>
+    <string name="remove_entry_dialog_tittle">Remove Entry</string>
+
+</resources>
