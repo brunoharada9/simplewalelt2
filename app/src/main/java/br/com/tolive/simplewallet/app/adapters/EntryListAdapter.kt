@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.tolive.simplewallet.app.EntryListFragment
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
+import com.google.android.material.card.MaterialCardView
 import java.text.NumberFormat
 import java.util.*
 
@@ -44,7 +45,8 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
     }
 
     class EntryListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val entryLayout: RelativeLayout = itemView.findViewById(R.id.entry_layout)
+        private val entryCard: MaterialCardView = itemView.findViewById(R.id.entry_card)
+        private val entryBackground: RelativeLayout = itemView.findViewById(R.id.entry_background)
 
         private val entryDescription: TextView = itemView.findViewById(R.id.entry_description)
         private val entryValue: TextView = itemView.findViewById(R.id.entry_value)
@@ -57,16 +59,16 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
 
         fun bind(currentEntry: Entry) {
             if (currentEntry.type == Entry.TYPE_GAIN){
-                entryLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_green_light))
+                entryBackground.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_green_light))
             } else if (currentEntry.type == Entry.TYPE_EXPENSE) {
-                entryLayout.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_red_light))
+                entryBackground.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_red_light))
             }
 
             val valueCurrency = getEntryValueFormatted(currentEntry)
             entryDescription.text = currentEntry.description
             entryValue.text = valueCurrency
 
-            entryLayout.setOnLongClickListener{
+            entryCard.setOnLongClickListener{
                 // TODO: Create a custom alert dialog
                 val builder = AlertDialog.Builder(itemView.context)
                 builder.setTitle(R.string.remove_entry_dialog_tittle)
