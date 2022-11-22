@@ -1,11 +1,11 @@
 package br.com.tolive.simplewallet.app
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.Fragment
+
 //import br.com.tolive.simplewallet.app.databinding.FragmentSecondBinding
 
 /**

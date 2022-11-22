@@ -36,7 +36,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
     }
 
     interface OnEntryClickListener {
-        fun onEntryRemoved(entry: Entry)
+        fun onEntryLongClick(entry: Entry)
     }
 
     fun setOnEntryLongClick(onEntryLongClick: OnEntryClickListener) {
@@ -77,7 +77,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
                         valueCurrency.toString()
                 )
                 builder.setPositiveButton(android.R.string.ok) { _, _ ->
-                    onEntryLongClick?.onEntryRemoved(currentEntry)
+                    onEntryLongClick?.onEntryLongClick(currentEntry)
                 }
                 builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
                 builder.show()

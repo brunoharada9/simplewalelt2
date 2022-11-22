@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Simple Wallet</string>
     <string name="action_settings">Settings</string>
+    <string name="fab_content">Button to add new entry</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="entry_list_fragment_label">Your entries</string>

@@ -4,42 +4,38 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = arrayOf(Entry::class), version = 1, exportSchema = false)
-public abstract class AppDatabase : RoomDatabase() {
+@Database(entities = [Entry::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
 
     abstract fun entryDAO(): EntryDAO
 
+    /*// Just for testing
     private class EntryDatabaseCallback(
         private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    populateDatabase(database.entryDAO())
+                    //populateDatabase(database.entryDAO())
                 }
             }
         }
 
-        suspend fun populateDatabase(entryDAO: EntryDAO) {
+        fun populateDatabase(entryDAO: EntryDAO) {
             // Delete all content here.
             entryDAO.deleteAll()
 
-            // Add sample words.
-            var entry = Entry(1.2, Entry.TYPE_GAIN, "Teste 1")
+            // Add Test entries.
+            var entry = Entry(1.2, Entry.TYPE_GAIN, "Test 1")
             entryDAO.insertEntry(entry)
-            entry = Entry(2.2, Entry.TYPE_EXPENSE, "Teste 2")
+            entry = Entry(2.2, Entry.TYPE_EXPENSE, "Test 2")
             entryDAO.insertEntry(entry)
-
-            // TODO: Add your own words!
         }
-    }
+    }*/
 
 
     companion object {
@@ -49,7 +45,7 @@ public abstract class AppDatabase : RoomDatabase() {
     private var INSTANCE: AppDatabase? = null
 
     fun getDatabase(context: Context,
-                    scope: CoroutineScope
+                    //scope: CoroutineScope
     ): AppDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -58,7 +54,7 @@ public abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).addCallback(EntryDatabaseCallback(scope)).build()
+                )/*.addCallback(EntryDatabaseCallback(scope))*/.build()
                 INSTANCE = instance
                 // return instance
                 instance

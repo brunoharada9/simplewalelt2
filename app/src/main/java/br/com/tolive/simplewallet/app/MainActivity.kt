@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -14,21 +13,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.room.DatabaseView
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
-import br.com.tolive.simplewallet.app.viewmodel.EntryListViewModel
-import br.com.tolive.simplewallet.app.viewmodel.EntryViewModelFactory
-
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
-    val viewModel: EntryListViewModel by viewModels{
-        EntryViewModelFactory((application as SimpleWalletApplication).repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // Create Listener to handle the database insertion on EntryListFragment
     interface OnAddEntryListener {
         fun onAddEntry(entry: Entry)
     }
@@ -63,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         val inflater = layoutInflater
         builder.setTitle(R.string.add_entry_dialog_title)
 
-        //val bind :DialogAlertCommonBinding = DialogAlertCommonBinding .inflate(inflater)
         val dialogLayout = inflater.inflate(R.layout.add_entry_dialog, null)
         val editTextDescription  = dialogLayout.findViewById<EditText>(R.id.edit_text_description)
         val editTextValue  = dialogLayout.findViewById<EditText>(R.id.edit_text_value)
@@ -78,9 +69,9 @@ class MainActivity : AppCompatActivity() {
 
         builder.setView(dialogLayout)
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            var entryType = getEntryType(radioGroup)
-            var value = getDoubleValue(editTextValue)
-            var entry = Entry(value, entryType, editTextDescription.text.toString())
+            val entryType = getEntryType(radioGroup)
+            val value = getDoubleValue(editTextValue)
+            val entry = Entry(value, entryType, editTextDescription.text.toString())
             addEntryListener?.onAddEntry(entry)
         }
         builder.setNegativeButton(android.R.string.cancel) { _, _ -> }

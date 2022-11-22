@@ -33,7 +33,7 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentEntryListBinding.inflate(inflater, container, false)
 
@@ -53,20 +53,12 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }*/
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onEntryRemoved(entry: Entry) {
+    override fun onEntryLongClick(entry: Entry) {
         viewLifecycleOwner.lifecycleScope.launch {
             Toast.makeText(context, R.string.remove_entry_toast, Toast.LENGTH_SHORT).show()
             viewModel.delete(entry)
