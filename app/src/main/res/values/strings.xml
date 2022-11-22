@@ -18,7 +18,7 @@
     <string name="add_entry_dialog_radio_expense">Expense</string>
 
     <!-- String for removing entry -->
-    <string name="remove_entry_toast">Removed</string>
+    <string name="remove_entry_toast">Removing</string>
     <string name="remove_entry_dialog_tittle">Remove Entry</string>
 
 </resources>

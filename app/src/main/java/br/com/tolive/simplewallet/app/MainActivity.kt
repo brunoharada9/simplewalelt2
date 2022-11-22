@@ -15,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
+import br.com.tolive.simplewallet.app.utils.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         builder.setView(dialogLayout)
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             val entryType = getEntryType(radioGroup)
-            val value = getDoubleValue(editTextValue)
+            val value = Utils.convertEditTextToDouble(editTextValue)
             val entry = Entry(value, entryType, editTextDescription.text.toString())
             addEntryListener?.onAddEntry(entry)
         }
@@ -78,14 +79,6 @@ class MainActivity : AppCompatActivity() {
         builder.show()
 
 
-    }
-
-    private fun getDoubleValue(editTextValue: EditText): Double {
-        var value = 0.0
-        if (editTextValue.text.toString().isNotEmpty()) {
-            value = editTextValue.text.toString().toDouble()
-        }
-        return value
     }
 
     private fun getEntryType(radioGroup: RadioGroup): Int {

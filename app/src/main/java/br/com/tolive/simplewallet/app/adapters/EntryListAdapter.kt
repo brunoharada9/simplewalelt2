@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.tolive.simplewallet.app.EntryListFragment
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
+import br.com.tolive.simplewallet.app.utils.Utils
 import com.google.android.material.card.MaterialCardView
 import java.text.NumberFormat
 import java.util.*
@@ -64,35 +65,14 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
                 entryBackground.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_red_light))
             }
 
-            val valueCurrency = getEntryValueFormatted(currentEntry)
+            val valueCurrency = Utils.getEntryValueFormatted(currentEntry)
             entryDescription.text = currentEntry.description
             entryValue.text = valueCurrency
 
             entryCard.setOnLongClickListener{
-                // TODO: Create a custom alert dialog
-                val builder = AlertDialog.Builder(itemView.context)
-                builder.setTitle(R.string.remove_entry_dialog_tittle)
-                builder.setMessage("Do you want to remove this entry?\n\n" +
-                        "Description\n" +
-                        "${currentEntry.description}\n\n" +
-                        "Value\n" +
-                        valueCurrency.toString()
-                )
-                builder.setPositiveButton(android.R.string.ok) { _, _ ->
-                    onEntryLongClick?.onEntryLongClick(currentEntry)
-                }
-                builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
-                builder.show()
-
+                onEntryLongClick?.onEntryLongClick(currentEntry)
                 return@setOnLongClickListener true
             }
-        }
-
-        private fun getEntryValueFormatted(current: Entry): String? {
-            val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance()
-            numberFormat.currency = Currency.getInstance("USD")
-
-            return numberFormat.format(current.value)
         }
 
         companion object {
