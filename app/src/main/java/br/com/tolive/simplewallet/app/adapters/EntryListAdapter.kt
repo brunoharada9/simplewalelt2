@@ -51,6 +51,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
 
         private val entryDescription: TextView = itemView.findViewById(R.id.entry_description)
         private val entryValue: TextView = itemView.findViewById(R.id.entry_value)
+        private val entryDate: TextView = itemView.findViewById(R.id.entry_date)
 
         private var onEntryLongClick: OnEntryClickListener? = null
 
@@ -68,6 +69,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
             val valueCurrency = Utils.getEntryValueFormatted(currentEntry)
             entryDescription.text = currentEntry.description
             entryValue.text = valueCurrency
+            entryDate.text = currentEntry.entryDate.toString()
 
             entryCard.setOnLongClickListener{
                 onEntryLongClick?.onEntryLongClick(currentEntry)

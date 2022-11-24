@@ -67,14 +67,13 @@
             android:gravity="center_vertical"
             android:text="@string/add_entry_dialog_text_date"/>
 
-        <EditText
-            android:id="@+id/edit_text_date"
+        <DatePicker
+            android:id="@+id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:datePickerMode="spinner"
             android:layout_weight="1"
-            android:ems="10"
-            android:importantForAutofill="no"
-            android:inputType="date" />
+            android:calendarViewShown="false"/>
 
     </LinearLayout>
 

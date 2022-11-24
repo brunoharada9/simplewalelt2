@@ -3,6 +3,7 @@ package br.com.tolive.simplewallet.app
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -59,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         val dialogLayout = inflater.inflate(R.layout.add_entry_dialog, null)
         val editTextDescription  = dialogLayout.findViewById<EditText>(R.id.edit_text_description)
         val editTextValue  = dialogLayout.findViewById<EditText>(R.id.edit_text_value)
-
-        // TODO: enable date selection
-        val editTextDate  = dialogLayout.findViewById<EditText>(R.id.edit_text_date)
+        val datePicker  = dialogLayout.findViewById<DatePicker>(R.id.date_picker)
 
         val radioGroup  = dialogLayout.findViewById<RadioGroup>(R.id.radio_group)
         // TODO: change Dialog color based on entry type
@@ -72,7 +71,10 @@ class MainActivity : AppCompatActivity() {
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             val entryType = getEntryType(radioGroup)
             val value = Utils.convertEditTextToDouble(editTextValue)
-            val entry = Entry(value, entryType, editTextDescription.text.toString())
+            val entryDate =
+                Entry.Date(datePicker.dayOfMonth, datePicker.month, datePicker.year)
+
+            val entry = Entry(value, entryType, editTextDescription.text.toString(), entryDate)
             addEntryListener?.onAddEntry(entry)
         }
         builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
