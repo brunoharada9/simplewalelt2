@@ -3,7 +3,7 @@ package br.com.tolive.simplewallet.app.viewmodel
 import androidx.lifecycle.*
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.data.EntryRepository
-import br.com.tolive.simplewallet.app.EntryListFragment
+import br.com.tolive.simplewallet.app.ui.EntryListFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

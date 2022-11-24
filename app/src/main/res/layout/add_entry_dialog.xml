@@ -2,80 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingStart="@dimen/margin_normal"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginBottom="@dimen/margin_normal">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <EditText
+        android:id="@+id/edit_text_description"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:hint="@string/add_entry_dialog_text_description"
+        android:importantForAutofill="no"
+        android:inputType="text" />
 
-        <TextView
-            android:id="@+id/text_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="@string/add_entry_dialog_text_description"/>
-
-        <EditText
-            android:id="@+id/edit_text_description"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:hint="@string/add_entry_dialog_text_description"
-            android:importantForAutofill="no"
-            android:inputType="text" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <EditText
+        android:id="@+id/edit_text_value"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:hint="@string/add_entry_dialog_text_value"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"/>
 
-        <TextView
-            android:id="@+id/text_value"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="@string/add_entry_dialog_text_value"/>
-
-        <EditText
-            android:id="@+id/edit_text_value"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:hint="@string/add_entry_dialog_text_value"
-            android:importantForAutofill="no"
-            android:inputType="numberDecimal"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <DatePicker
+        android:id="@+id/date_picker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/text_date"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="@string/add_entry_dialog_text_date"/>
-
-        <DatePicker
-            android:id="@+id/date_picker"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:datePickerMode="spinner"
-            android:layout_weight="1"
-            android:calendarViewShown="false"/>
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"/>
 
     <RadioGroup
         android:id="@+id/radio_group"
@@ -86,6 +44,7 @@
 
         <RadioButton
             android:id="@+id/radio_gain"
+            android:textAppearance="@android:style/TextAppearance.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -93,6 +52,7 @@
 
         <RadioButton
             android:id="@+id/radio_expense"
+            android:textAppearance="@android:style/TextAppearance.Large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"

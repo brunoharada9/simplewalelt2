@@ -5,28 +5,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import br.com.tolive.simplewallet.app.EntryListFragment
+import br.com.tolive.simplewallet.app.ui.EntryListFragment
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
+import br.com.tolive.simplewallet.app.ui.RemoveEntryDialog
 import br.com.tolive.simplewallet.app.utils.Utils
 import com.google.android.material.card.MaterialCardView
-import java.text.NumberFormat
-import java.util.*
 
 /**
  * Adapter for the [RecyclerView] in [EntryListFragment].
  */
-class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder>(EntriesComparator()) {
-    private var onEntryLongClick: OnEntryClickListener? = null
+class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder>(EntriesComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryListViewHolder {
         val entryListViewHolder: EntryListViewHolder = EntryListViewHolder.create(parent)
-        onEntryLongClick?.let { entryListViewHolder.setOnItemLongClick(it) }
+        entryListViewHolder.setOnEntryLongClick(onEntryLongClick)
 
         return entryListViewHolder
     }
@@ -41,10 +39,6 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
         fun onEntryLongClick(entry: Entry)
     }
 
-    fun setOnEntryLongClick(onEntryLongClick: OnEntryClickListener) {
-        this.onEntryLongClick = onEntryLongClick
-    }
-
     class EntryListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val entryCard: MaterialCardView = itemView.findViewById(R.id.entry_card)
         private val entryBackground: RelativeLayout = itemView.findViewById(R.id.entry_background)
@@ -55,7 +49,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
 
         private var onEntryLongClick: OnEntryClickListener? = null
 
-        fun setOnItemLongClick(onEntryLongClick: OnEntryClickListener) {
+        fun setOnEntryLongClick(onEntryLongClick: OnEntryClickListener) {
             this.onEntryLongClick = onEntryLongClick
         }
 
@@ -72,7 +66,7 @@ class EntryListAdapter : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder
             entryDate.text = currentEntry.entryDate.toString()
 
             entryCard.setOnLongClickListener{
-                onEntryLongClick?.onEntryLongClick(currentEntry)
+                RemoveEntryDialog(currentEntry, onEntryLongClick).show((itemView.context as AppCompatActivity).supportFragmentManager, RemoveEntryDialog.TAG)
                 return@setOnLongClickListener true
             }
         }

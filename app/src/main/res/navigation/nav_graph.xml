@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="br.com.tolive.simplewallet.app.EntryListFragment"
+        android:name="br.com.tolive.simplewallet.app.ui.EntryListFragment"
         android:label="@string/entry_list_fragment_label"
         tools:layout="@layout/fragment_entry_list">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="br.com.tolive.simplewallet.app.SecondFragment"
+        android:name="br.com.tolive.simplewallet.app.ui.SecondFragment"
         android:label="@string/entry_details_fragment_label"
         tools:layout="@layout/fragment_entry_details">
 

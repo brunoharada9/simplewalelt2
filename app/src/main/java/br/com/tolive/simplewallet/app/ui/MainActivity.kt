@@ -1,22 +1,17 @@
-package br.com.tolive.simplewallet.app
+package br.com.tolive.simplewallet.app.ui
 
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.DatePicker
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
-import br.com.tolive.simplewallet.app.utils.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             val entryListFragment : EntryListFragment? = navHostFragment.childFragmentManager.fragments[0] as? EntryListFragment
             if (entryListFragment != null) {
                 addEntryListener = entryListFragment
-                createAddEntryDialog()
+                AddEntryDialog(addEntryListener as EntryListFragment).show(supportFragmentManager, AddEntryDialog.TAG)
             }
         }
     }
@@ -51,46 +46,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private var addEntryListener: OnAddEntryListener? = null
-
-    private fun createAddEntryDialog() {
-        val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-        builder.setTitle(R.string.add_entry_dialog_title)
-
-        val dialogLayout = inflater.inflate(R.layout.add_entry_dialog, null)
-        val editTextDescription  = dialogLayout.findViewById<EditText>(R.id.edit_text_description)
-        val editTextValue  = dialogLayout.findViewById<EditText>(R.id.edit_text_value)
-        val datePicker  = dialogLayout.findViewById<DatePicker>(R.id.date_picker)
-
-        val radioGroup  = dialogLayout.findViewById<RadioGroup>(R.id.radio_group)
-        // TODO: change Dialog color based on entry type
-        val radioButtonGain  = dialogLayout.findViewById<RadioButton>(R.id.radio_gain)
-        val radioButtonExpense  = dialogLayout.findViewById<RadioButton>(R.id.radio_expense)
-
-        builder.setView(dialogLayout)
-        builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            val entryType = getEntryType(radioGroup)
-            val value = Utils.convertEditTextToDouble(editTextValue)
-            val entryDate =
-                Entry.Date(datePicker.dayOfMonth, datePicker.month, datePicker.year)
-
-            val entry = Entry(value, entryType, editTextDescription.text.toString(), entryDate)
-            addEntryListener?.onAddEntry(entry)
-        }
-        builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
-        builder.show()
-
-
-    }
-
-    private fun getEntryType(radioGroup: RadioGroup): Int {
-        var entryType = Entry.TYPE_GAIN
-        when (radioGroup.checkedRadioButtonId) {
-            R.id.radio_gain -> entryType = Entry.TYPE_GAIN
-            R.id.radio_expense -> entryType = Entry.TYPE_EXPENSE
-        }
-        return entryType
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

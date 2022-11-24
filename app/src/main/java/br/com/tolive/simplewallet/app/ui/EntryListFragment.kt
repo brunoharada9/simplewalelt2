@@ -1,18 +1,15 @@
-package br.com.tolive.simplewallet.app
+package br.com.tolive.simplewallet.app.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import br.com.tolive.simplewallet.app.adapters.EntryListAdapter
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.FragmentEntryListBinding
-import br.com.tolive.simplewallet.app.utils.Utils
 import br.com.tolive.simplewallet.app.viewmodel.EntryListViewModel
 import br.com.tolive.simplewallet.app.viewmodel.EntryViewModelFactory
 import kotlinx.coroutines.launch
@@ -39,10 +36,9 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
 
         _binding = FragmentEntryListBinding.inflate(inflater, container, false)
 
-        val adapter = EntryListAdapter()
+        val adapter = EntryListAdapter(this)
         //subscribeUi(adapter)
         binding.entryList.adapter = adapter
-        adapter.setOnEntryLongClick(this)
 
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
@@ -61,24 +57,9 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
     }
 
     override fun onEntryLongClick(entry: Entry) {
-        // TODO: Create a custom alert dialog
-        val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(R.string.remove_entry_dialog_tittle)
-        builder?.setMessage("Do you want to remove this entry?\n\n" +
-                "Description\n" +
-                "${entry.description}\n\n" +
-                "Value\n" +
-                Utils.getEntryValueFormatted(entry)
-        )
-        builder?.setPositiveButton(android.R.string.ok) { _, _ ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                Toast.makeText(context, R.string.remove_entry_toast, Toast.LENGTH_SHORT).show()
-                viewModel.delete(entry)
-            }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.delete(entry)
         }
-        builder?.setNegativeButton(android.R.string.cancel) { _, _ -> }
-        builder?.show()
-
     }
 
     override fun onAddEntry(entry: Entry) {

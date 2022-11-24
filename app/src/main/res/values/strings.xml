@@ -10,7 +10,7 @@
     <string name="previous">Previous</string>
 
     <!-- Strings for add_entry_dialog -->
-    <string name="add_entry_dialog_title">Description</string>
+    <string name="add_entry_dialog_title">Add new Entry</string>
     <string name="add_entry_dialog_text_description">Description</string>
     <string name="add_entry_dialog_text_value">Value</string>
     <string name="add_entry_dialog_text_date">Date</string>

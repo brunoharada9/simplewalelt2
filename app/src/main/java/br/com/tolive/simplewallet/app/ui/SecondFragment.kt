@@ -1,4 +1,4 @@
-package br.com.tolive.simplewallet.app
+package br.com.tolive.simplewallet.app.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

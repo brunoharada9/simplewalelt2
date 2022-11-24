@@ -1,4 +1,4 @@
-package br.com.tolive.simplewallet.app
+package br.com.tolive.simplewallet.app.ui
 
 import android.app.Application
 import br.com.tolive.simplewallet.app.data.AppDatabase
