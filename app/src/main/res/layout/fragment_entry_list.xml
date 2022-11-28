@@ -3,20 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.EntryListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/entry_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingEnd="@dimen/card_side_margin"
         android:paddingStart="@dimen/card_side_margin"
         android:paddingTop="@dimen/card_side_margin"
         android:paddingBottom="@dimen/card_side_margin"
         android:layout_marginBottom="@dimen/summary_height"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         tools:listitem="@layout/entry_list_item"
         android:layout_alignBottom="@id/summary_card"/>
 
