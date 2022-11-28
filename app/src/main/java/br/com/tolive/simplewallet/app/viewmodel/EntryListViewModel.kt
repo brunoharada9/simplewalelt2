@@ -21,11 +21,21 @@ class EntryListViewModel constructor (
     // - Repository is completely separated from the UI through the ViewModel.
     val allEntries: LiveData<List<Entry>> = entryRepository.allEntries.asLiveData()
 
+    var sum = 0.0
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            sum = entryRepository.getValueSum()
+        }
+    }
+
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
     fun insert(entry: Entry) = CoroutineScope(Dispatchers.IO).launch {
         entryRepository.insert(entry)
+        //sum += entry.value
+        sum = entryRepository.getValueSum()
     }
 
     /**
@@ -33,5 +43,7 @@ class EntryListViewModel constructor (
      */
     fun delete(entry: Entry) = CoroutineScope(Dispatchers.IO).launch {
         entryRepository.delete(entry)
+        //sum -= entry.value
+        sum = entryRepository.getValueSum()
     }
 }

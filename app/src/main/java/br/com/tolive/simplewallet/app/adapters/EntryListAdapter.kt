@@ -44,8 +44,8 @@ class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapt
         private val entryBackground: RelativeLayout = itemView.findViewById(R.id.entry_background)
 
         private val entryDescription: TextView = itemView.findViewById(R.id.entry_description)
-        private val entryValue: TextView = itemView.findViewById(R.id.entry_value)
-        private val entryDate: TextView = itemView.findViewById(R.id.entry_date)
+        private val entryValue: TextView = itemView.findViewById(R.id.summary_value)
+        private val entryDate: TextView = itemView.findViewById(R.id.summary_month)
 
         private var onEntryLongClick: OnEntryClickListener? = null
 

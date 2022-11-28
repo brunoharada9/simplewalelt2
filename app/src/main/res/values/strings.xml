@@ -21,4 +21,8 @@
     <string name="remove_entry_toast">Removing</string>
     <string name="remove_entry_dialog_tittle">Remove Entry</string>
 
+    <!-- String for Summary layout -->
+    <string name="summary_balance">Balance</string>
+    <string name="summary_title">SUMMARY</string>
+
 </resources>

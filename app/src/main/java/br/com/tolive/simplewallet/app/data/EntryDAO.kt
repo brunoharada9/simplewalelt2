@@ -17,6 +17,9 @@ interface EntryDAO {
     @Query("SELECT * FROM entries")
     fun getEntries(): Flow<List<Entry>>
 
+    @Query("SELECT SUM(value) FROM entries")
+    fun getValueSum(): Double
+
     @Query("SELECT * FROM entries WHERE year = :year")
     fun getByYear(year: Int):Flow<List<Entry>>
 

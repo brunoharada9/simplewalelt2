@@ -32,7 +32,7 @@ class AddEntryDialog(var addEntryListener: MainActivity.OnAddEntryListener) : Di
         builder.setView(dialogLayout)
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             val entryType = getEntryType(radioGroup)
-            val value = Utils.convertEditTextToDouble(editTextValue)
+            val value = Utils.convertEditTextToDouble(editTextValue, entryType)
             val entryDate =
                 Entry.Date(datePicker.dayOfMonth, datePicker.month, datePicker.year)
 
