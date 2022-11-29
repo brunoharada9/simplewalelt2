@@ -20,11 +20,11 @@ class Utils {
             return value
         }
 
-        fun getEntryValueFormatted(current: Entry): String? {
+        fun getEntryValueFormatted(entry: Entry): String? {
             val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance()
             numberFormat.currency = Currency.getInstance("USD")
 
-            return numberFormat.format(current.value)
+            return numberFormat.format(entry.value)
         }
 
         fun getValueFormatted(value: Double): String? {

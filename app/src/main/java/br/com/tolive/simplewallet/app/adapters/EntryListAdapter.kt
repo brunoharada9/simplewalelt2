@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -20,11 +19,11 @@ import com.google.android.material.card.MaterialCardView
 /**
  * Adapter for the [RecyclerView] in [EntryListFragment].
  */
-class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder>(EntriesComparator()) {
+class EntryListAdapter (var onEntryClickListener : OnEntryClickListener) : ListAdapter<Entry, EntryListAdapter.EntryListViewHolder>(EntriesComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EntryListViewHolder {
         val entryListViewHolder: EntryListViewHolder = EntryListViewHolder.create(parent)
-        entryListViewHolder.setOnEntryLongClick(onEntryLongClick)
+        entryListViewHolder.setOnEntryLongClick(onEntryClickListener)
 
         return entryListViewHolder
     }
@@ -36,6 +35,7 @@ class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapt
     }
 
     interface OnEntryClickListener {
+        fun onEntryClick(entry: Entry)
         fun onEntryLongClick(entry: Entry)
     }
 
@@ -44,8 +44,8 @@ class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapt
         private val entryBackground: RelativeLayout = itemView.findViewById(R.id.entry_background)
 
         private val entryDescription: TextView = itemView.findViewById(R.id.entry_description)
-        private val entryValue: TextView = itemView.findViewById(R.id.summary_value)
-        private val entryDate: TextView = itemView.findViewById(R.id.summary_month)
+        private val entryValue: TextView = itemView.findViewById(R.id.entry_value)
+        private val entryDate: TextView = itemView.findViewById(R.id.entry_date)
 
         private var onEntryLongClick: OnEntryClickListener? = null
 
@@ -55,15 +55,19 @@ class EntryListAdapter (var onEntryLongClick : OnEntryClickListener) : ListAdapt
 
         fun bind(currentEntry: Entry) {
             if (currentEntry.type == Entry.TYPE_GAIN){
-                entryBackground.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_green_light))
+                entryBackground.setBackgroundResource(android.R.color.holo_green_light)
             } else if (currentEntry.type == Entry.TYPE_EXPENSE) {
-                entryBackground.setBackgroundColor(ContextCompat.getColor(itemView.context, android.R.color.holo_red_light))
+                entryBackground.setBackgroundResource(android.R.color.holo_red_light)
             }
 
             val valueCurrency = Utils.getEntryValueFormatted(currentEntry)
             entryDescription.text = currentEntry.description
             entryValue.text = valueCurrency
             entryDate.text = currentEntry.entryDate.toString()
+
+            entryCard.setOnClickListener {
+                onEntryLongClick?.onEntryClick(currentEntry)
+            }
 
             entryCard.setOnLongClickListener{
                 RemoveEntryDialog(currentEntry, onEntryLongClick).show((itemView.context as AppCompatActivity).supportFragmentManager, RemoveEntryDialog.TAG)

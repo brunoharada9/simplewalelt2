@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_entry_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_EntryListFragment_to_EntryDetailsFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="br.com.tolive.simplewallet.app.ui.SecondFragment"
+        android:name="br.com.tolive.simplewallet.app.ui.EntryDetailsFragment"
         android:label="@string/entry_details_fragment_label"
         tools:layout="@layout/fragment_entry_details">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_EntryDetailsFragment_to_EntryListFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>
