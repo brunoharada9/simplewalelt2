@@ -3,6 +3,7 @@ package br.com.tolive.simplewallet.app.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -12,14 +13,15 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import br.com.tolive.simplewallet.app.utils.Utils
+
+
+private const val SUMMARY_ANIMATION_TIME: Long = 300
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
-    lateinit var fab: FloatingActionButton
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        fab = binding.fab
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             val entryListFragment : EntryListFragment? = navHostFragment.childFragmentManager.fragments[0] as? EntryListFragment
             if (entryListFragment != null) {
                 addEntryListener = entryListFragment
@@ -71,5 +72,34 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    fun updateSummary(sum: Double) {
+        binding.summaryValue.text = Utils.getValueFormatted(sum)
+        if (sum < 0) {
+            binding.layoutSummary.setBackgroundResource(android.R.color.holo_red_light)
+        } else {
+            binding.layoutSummary.setBackgroundResource(android.R.color.holo_green_light)
+        }
+    }
+
+    fun showSummaryAndFab() {
+        binding.fab.show()
+
+        val animate = TranslateAnimation(0F,0F,
+            binding.summaryCard.height.toFloat(), 0F)
+        animate.duration = SUMMARY_ANIMATION_TIME
+        animate.fillAfter = true
+        binding.summaryCard.startAnimation(animate)
+    }
+
+    fun hideSummaryAndFab() {
+        binding.fab.hide()
+
+        val animate = TranslateAnimation(0F,0F,
+            0F, binding.summaryCard.height.toFloat())
+        animate.duration = SUMMARY_ANIMATION_TIME
+        animate.fillAfter = true
+        binding.summaryCard.startAnimation(animate)
     }
 }

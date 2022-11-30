@@ -15,7 +15,6 @@ import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.adapters.EntryListAdapter
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.FragmentEntryListBinding
-import br.com.tolive.simplewallet.app.utils.Utils
 import br.com.tolive.simplewallet.app.viewmodel.EntryListViewModel
 import br.com.tolive.simplewallet.app.viewmodel.EntryViewModelFactory
 import kotlinx.coroutines.launch
@@ -27,6 +26,7 @@ import kotlinx.coroutines.launch
 class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryListAdapter.OnEntryClickListener {
 
     private var _binding: FragmentEntryListBinding? = null
+    private lateinit var _activity: MainActivity
 
     private val viewModel: EntryListViewModel by viewModels{
         EntryViewModelFactory((activity?.application as SimpleWalletApplication).repository)
@@ -38,7 +38,8 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        (activity as MainActivity).fab.show()
+        _activity = activity as MainActivity
+        _activity.showSummaryAndFab()
 
         _binding = FragmentEntryListBinding.inflate(inflater, container, false)
 
@@ -60,12 +61,7 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
             entries.let {
                 adapter.submitList(it)
 
-                binding.summaryValue.text = Utils.getValueFormatted(viewModel.sum)
-                if (viewModel.sum < 0) {
-                    binding.layoutSummary.setBackgroundResource(android.R.color.holo_red_light)
-                } else {
-                    binding.layoutSummary.setBackgroundResource(android.R.color.holo_green_light)
-                }
+                _activity.updateSummary(viewModel.sum)
             }
         }
 
@@ -87,7 +83,7 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
         val extras = FragmentNavigatorExtras(
             entryCard to entryCard.transitionName
         )
-        (activity as MainActivity).fab.hide()
+        _activity.hideSummaryAndFab()
         findNavController().navigate(R.id.action_EntryListFragment_to_EntryDetailsFragment, args, null, extras)
     }
 
