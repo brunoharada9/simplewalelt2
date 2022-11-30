@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.transition.TransitionInflater
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.FragmentEntryDetailsBinding
 import br.com.tolive.simplewallet.app.utils.Utils
@@ -19,15 +21,34 @@ class EntryDetailsFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
 
-        (activity as MainActivity).fab.hide()
-
         _binding = FragmentEntryDetailsBinding.inflate(inflater, container, false)
+
+        val transitionName = arguments?.getString(NAME_KEY)
+
+        ViewCompat.setTransitionName(binding.entryCard, transitionName)
+
         return binding.root
+    }
+
+    companion object {
+        private const val NAME_KEY = "key"
+
+        fun getBundle(transitionName: String?): Bundle {
+            val args = Bundle()
+            args.putString(NAME_KEY, transitionName)
+            return args
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +79,6 @@ class EntryDetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        (activity as MainActivity).fab.show()
         _binding = null
     }
 }

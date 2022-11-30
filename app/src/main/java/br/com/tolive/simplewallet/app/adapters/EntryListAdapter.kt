@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,11 +32,11 @@ class EntryListAdapter (var onEntryClickListener : OnEntryClickListener) : ListA
     override fun onBindViewHolder(holder: EntryListViewHolder, position: Int) {
         val current = getItem(position)
 
-        holder.bind(current)
+        holder.bind(current, position)
     }
 
     interface OnEntryClickListener {
-        fun onEntryClick(entry: Entry)
+        fun onEntryClick(entry: Entry, entryCard: View)
         fun onEntryLongClick(entry: Entry)
     }
 
@@ -53,7 +54,7 @@ class EntryListAdapter (var onEntryClickListener : OnEntryClickListener) : ListA
             this.onEntryLongClick = onEntryLongClick
         }
 
-        fun bind(currentEntry: Entry) {
+        fun bind(currentEntry: Entry, position: Int) {
             if (currentEntry.type == Entry.TYPE_GAIN){
                 entryBackground.setBackgroundResource(android.R.color.holo_green_light)
             } else if (currentEntry.type == Entry.TYPE_EXPENSE) {
@@ -66,13 +67,15 @@ class EntryListAdapter (var onEntryClickListener : OnEntryClickListener) : ListA
             entryDate.text = currentEntry.entryDate.toString()
 
             entryCard.setOnClickListener {
-                onEntryLongClick?.onEntryClick(currentEntry)
+                onEntryLongClick?.onEntryClick(currentEntry, entryCard)
             }
 
             entryCard.setOnLongClickListener{
                 RemoveEntryDialog(currentEntry, onEntryLongClick).show((itemView.context as AppCompatActivity).supportFragmentManager, RemoveEntryDialog.TAG)
                 return@setOnLongClickListener true
             }
+
+            ViewCompat.setTransitionName(entryCard, "entry_card_list_$position")
         }
 
         companion object {
