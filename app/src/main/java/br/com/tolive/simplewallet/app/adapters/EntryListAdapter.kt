@@ -56,9 +56,9 @@ class EntryListAdapter (var onEntryClickListener : OnEntryClickListener) : ListA
 
         fun bind(currentEntry: Entry, position: Int) {
             if (currentEntry.type == Entry.TYPE_GAIN){
-                entryBackground.setBackgroundResource(android.R.color.holo_green_light)
+                entryBackground.setBackgroundResource(R.color.green)
             } else if (currentEntry.type == Entry.TYPE_EXPENSE) {
-                entryBackground.setBackgroundResource(android.R.color.holo_red_light)
+                entryBackground.setBackgroundResource(R.color.red)
             }
 
             val valueCurrency = Utils.getEntryValueFormatted(currentEntry)

@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Simple Wallet</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Filter</string>
     <string name="fab_content">Button to add new entry</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="entry_list_fragment_label">Your entries</string>
+    <string name="entry_list_fragment_label">Simple Wallet</string>
     <string name="entry_details_fragment_label">Details</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
@@ -23,6 +23,5 @@
 
     <!-- String for Summary layout -->
     <string name="summary_balance">Balance</string>
-    <string name="summary_title">SUMMARY</string>
 
 </resources>

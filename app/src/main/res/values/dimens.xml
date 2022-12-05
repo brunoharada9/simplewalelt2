@@ -10,6 +10,7 @@
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_extra_small">4dp</dimen>
+    <dimen name="margin_separator">2dp</dimen>
 
     <dimen name="card_side_margin">12dp</dimen>
     <dimen name="card_bottom_margin">196dp</dimen>

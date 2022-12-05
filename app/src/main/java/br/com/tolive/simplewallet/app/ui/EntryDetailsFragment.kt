@@ -2,15 +2,18 @@ package br.com.tolive.simplewallet.app.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
+import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.FragmentEntryDetailsBinding
 import br.com.tolive.simplewallet.app.utils.Utils
+
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -58,12 +61,13 @@ class EntryDetailsFragment : Fragment() {
 
         if (entry != null) {
             if (entry.type == Entry.TYPE_GAIN){
-                binding.entryBackground.setBackgroundResource(android.R.color.holo_green_light)
+                binding.entryBackground.setBackgroundResource(R.color.green)
             } else if (entry.type == Entry.TYPE_EXPENSE) {
-                binding.entryBackground.setBackgroundResource(android.R.color.holo_red_light)
+                binding.entryBackground.setBackgroundResource(R.color.red)
             }
 
             binding.entryDescription.text = entry.description.toString()
+            binding.entryDescription.movementMethod = ScrollingMovementMethod()
             binding.entryValue.text = Utils.getEntryValueFormatted(entry)
             binding.entryDate.text = entry.entryDate.toString()
         }

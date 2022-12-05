@@ -7,6 +7,7 @@
     tools:context=".ui.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/Theme.SimpleWallet2.AppBarOverlay">
@@ -37,28 +38,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/margin_normal"
-            android:background="@android:color/holo_green_light">
+            android:background="@color/blue_gray_500">
 
             <TextView
                 android:id="@+id/summary_title"
-                style="@style/SummaryTextStyle"
+                style="@style/EntryListItemTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="4"
                 android:ellipsize="end"
-                android:text="@string/summary_title"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignBottom="@id/summary_value"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_separator"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_alignTop="@+id/summary_balance"
+                android:background="@color/white_op"/>
+
             <TextView
                 android:id="@+id/summary_balance"
-                style="@style/SummaryTextStyle"
+                style="@style/EntryListItemTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/summary_balance"
+                android:paddingTop="@dimen/margin_extra_small"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"/>
+
+            <TextView
+                android:id="@+id/summary_stroke"
+                style="@style/SummaryTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_alignStart="@id/summary_balance"
+                android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"/>
 
             <TextView

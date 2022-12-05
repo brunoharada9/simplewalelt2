@@ -29,7 +29,7 @@ data class Entry(
 
     class Date (val day: Int, val month: Int, val year: Int) {
         override fun toString(): String {
-            return LocalDate.of(year, month, day).toString()
+            return LocalDate.of(year, (month+1), day).toString()
         }
     }
 

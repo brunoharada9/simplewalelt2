@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.adapters.EntryListAdapter
 import br.com.tolive.simplewallet.app.data.Entry
@@ -43,14 +42,6 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
 
         _binding = FragmentEntryListBinding.inflate(inflater, container, false)
 
-        val linearLayoutManager = LinearLayoutManager(activity)
-        // TODO: ideally new entries should be on top,
-        //  but this is messing up with the returning transaction animation
-        //  so let's comment for now
-        //linearLayoutManager.reverseLayout = true
-        //linearLayoutManager.stackFromEnd = true
-        binding.entryList.layoutManager = linearLayoutManager
-
         val adapter = EntryListAdapter(this)
         binding.entryList.adapter = adapter
 
@@ -59,7 +50,9 @@ class EntryListFragment : Fragment(), MainActivity.OnAddEntryListener, EntryList
         viewModel.allEntries.observe(viewLifecycleOwner) { entries ->
             // Update the cached copy of the entries in the adapter.
             entries.let {
-                adapter.submitList(it)
+                adapter.submitList(it) {
+                    binding.entryList.scrollToPosition(entries.size - 1)
+                }
 
                 _activity.updateSummary(viewModel.sum)
             }

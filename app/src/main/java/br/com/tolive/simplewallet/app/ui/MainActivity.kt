@@ -1,9 +1,11 @@
 package br.com.tolive.simplewallet.app.ui
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.TranslateAnimation
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,14 +16,13 @@ import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Entry
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
 import br.com.tolive.simplewallet.app.utils.Utils
+import java.util.*
 
-
-private const val SUMMARY_ANIMATION_TIME: Long = 300
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // TODO filter to show month or year
+        binding.summaryTitle.text = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase()
 
         binding.fab.setOnClickListener {
             val entryListFragment : EntryListFragment? = navHostFragment.childFragmentManager.fragments[0] as? EntryListFragment
@@ -63,7 +67,11 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+            R.id.action_filter -> {
+                // TODO Open filter dialog to select by month or year
+                Toast.makeText(this, "Open filter dialog", Toast.LENGTH_SHORT).show()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -77,17 +85,22 @@ class MainActivity : AppCompatActivity() {
     fun updateSummary(sum: Double) {
         binding.summaryValue.text = Utils.getValueFormatted(sum)
         if (sum < 0) {
-            binding.layoutSummary.setBackgroundResource(android.R.color.holo_red_light)
+            binding.summaryValue.setTextAppearance(R.style.SummaryTextStyleRed)
         } else {
-            binding.layoutSummary.setBackgroundResource(android.R.color.holo_green_light)
+            binding.summaryValue.setTextAppearance(R.style.SummaryTextStyleGreen)
         }
+
+        // Create a white stroke for text outline
+        binding.summaryStroke.text = Utils.getValueFormatted(sum)
+        binding.summaryStroke.paint.strokeWidth = SUM_VALUE_STROKE_SIZE
+        binding.summaryStroke.paint.style = Paint.Style.STROKE
     }
 
     fun showSummaryAndFab() {
         binding.fab.show()
 
-        val animate = TranslateAnimation(0F,0F,
-            binding.summaryCard.height.toFloat(), 0F)
+        val animate = TranslateAnimation(ANIMATION_0F,ANIMATION_0F,
+            binding.summaryCard.height.toFloat(), ANIMATION_0F)
         animate.duration = SUMMARY_ANIMATION_TIME
         animate.fillAfter = true
         binding.summaryCard.startAnimation(animate)
@@ -96,10 +109,20 @@ class MainActivity : AppCompatActivity() {
     fun hideSummaryAndFab() {
         binding.fab.hide()
 
-        val animate = TranslateAnimation(0F,0F,
-            0F, binding.summaryCard.height.toFloat())
+        val animate = TranslateAnimation(ANIMATION_0F,ANIMATION_0F,
+            ANIMATION_0F, binding.summaryCard.height.toFloat())
         animate.duration = SUMMARY_ANIMATION_TIME
         animate.fillAfter = true
         binding.summaryCard.startAnimation(animate)
+    }
+
+    companion object {
+        const val SUMMARY_ANIMATION_TIME: Long = 300
+
+        const val ANIMATION_0F = 0F
+        const val SUM_VALUE_STROKE_SIZE = 2F
+
+        //const val THEME_GREEN: Int = 0
+        //const val THEME_RED: Int = 1
     }
 }

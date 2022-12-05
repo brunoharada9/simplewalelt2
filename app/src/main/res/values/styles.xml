@@ -29,18 +29,34 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/white_op</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
-    <!-- The default font for RecyclerView items is too small.
-    The margin is a simple delimiter between the words. -->
     <style name="SummaryTextStyle">
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/white_op</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+    </style>
+
+    <style name="SummaryTextStyleGreen">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
+    </style>
+
+    <style name="SummaryTextStyleRed">
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textColor">@color/red</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 </resources>
