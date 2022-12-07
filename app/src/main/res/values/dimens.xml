@@ -19,7 +19,7 @@
     <dimen name="header_margin">24dp</dimen>
 
     <!-- minimum height of plant detail page so that the collapsing toolbar can be shown on every page -->
-    <dimen name="entry_list_min_height">160dp</dimen>
+    <dimen name="transaction_list_min_height">160dp</dimen>
 
     <dimen name="summary_height">184dp</dimen>
 </resources>

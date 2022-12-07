@@ -4,18 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [Entry::class], version = 1, exportSchema = false)
+@Database(entities = [Transaction::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun entryDAO(): EntryDAO
+    abstract fun transactionDAO(): TransactionDAO
 
     /*// Just for testing
-    private class EntryDatabaseCallback(
+    private class TransactionDatabaseCallback(
         private val scope: CoroutineScope
     ) : Callback() {
 
@@ -23,20 +21,20 @@ abstract class AppDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    //populateDatabase(database.entryDAO())
+                    //populateDatabase(database.transactionDAO())
                 }
             }
         }
 
-        fun populateDatabase(entryDAO: EntryDAO) {
+        fun populateDatabase(transactionDAO: TransactionDAO) {
             // Delete all content here.
-            entryDAO.deleteAll()
+            transactionDAO.deleteAll()
 
-            // Add Test entries.
-            var entry = Entry(1.2, Entry.TYPE_GAIN, "Test 1")
-            entryDAO.insertEntry(entry)
-            entry = Entry(2.2, Entry.TYPE_EXPENSE, "Test 2")
-            entryDAO.insertEntry(entry)
+            // Add Test transactions.
+            var transaction = Transaction(1.2, Transaction.TYPE_GAIN, "Test 1")
+            transactionDAO.insertTransaction(transaction)
+            transaction = Transaction(2.2, Transaction.TYPE_EXPENSE, "Test 2")
+            transactionDAO.insertTransaction(transaction)
         }
     }*/
 
@@ -57,7 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                )//.addCallback(EntryDatabaseCallback(scope))
+                )//.addCallback(TransactionDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 // return instance

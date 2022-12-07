@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gastos Simples</string>
+    <string name="action_settings">Filtro</string>
+    <string name="fab_content">Botão para adicionar nova transação</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="transaction_list_fragment_label">Transações</string>
+    <string name="transaction_details_fragment_label">Detalhes</string>
+
+    <!-- Strings for add_transaction_dialog -->
+    <string name="add_transaction_dialog_title">Adicionar</string>
+    <string name="add_transaction_dialog_text_description">Descrição</string>
+    <string name="add_transaction_dialog_text_value">Valor</string>
+    <string name="add_transaction_dialog_text_date">Data</string>
+    <string name="add_transaction_dialog_radio_gain">Ganho</string>
+    <string name="add_transaction_dialog_radio_expense">Despesa</string>
+
+    <!-- String for removing transaction -->
+    <string name="remove_transaction_toast">Removendo</string>
+    <string name="remove_transaction_dialog_tittle">Remover</string>
+
+    <!-- String for Summary layout -->
+    <string name="summary_balance">Saldo</string>
+
+</resources>

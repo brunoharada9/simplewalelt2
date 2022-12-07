@@ -13,7 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import br.com.tolive.simplewallet.app.R
-import br.com.tolive.simplewallet.app.data.Entry
+import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
 import br.com.tolive.simplewallet.app.utils.Utils
 import java.util.*
@@ -41,20 +41,20 @@ class MainActivity : AppCompatActivity() {
         binding.summaryTitle.text = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase()
 
         binding.fab.setOnClickListener {
-            val entryListFragment : EntryListFragment? = navHostFragment.childFragmentManager.fragments[0] as? EntryListFragment
-            if (entryListFragment != null) {
-                addEntryListener = entryListFragment
-                AddEntryDialog(addEntryListener as EntryListFragment).show(supportFragmentManager, AddEntryDialog.TAG)
+            val transactionListFragment : TransactionListFragment? = navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
+            if (transactionListFragment != null) {
+                addTransactionListener = transactionListFragment
+                AddTransactionDialog(addTransactionListener as TransactionListFragment).show(supportFragmentManager, AddTransactionDialog.TAG)
             }
         }
     }
 
-    // Create Listener to handle the database insertion on EntryListFragment
-    interface OnAddEntryListener {
-        fun onAddEntry(entry: Entry)
+    // Create Listener to handle the database insertion on TransactionListFragment
+    interface OnAddTransactionListener {
+        fun onAddTransaction(transaction: Transaction)
     }
 
-    private var addEntryListener: OnAddEntryListener? = null
+    private var addTransactionListener: OnAddTransactionListener? = null
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

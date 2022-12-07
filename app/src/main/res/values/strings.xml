@@ -1,25 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Simple Wallet</string>
     <string name="action_settings">Filter</string>
-    <string name="fab_content">Button to add new entry</string>
+    <string name="fab_content">Button to add new transaction</string>
 
     <!-- Strings used for fragments for navigation -->
-    <string name="entry_list_fragment_label">Simple Wallet</string>
-    <string name="entry_details_fragment_label">Details</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="transaction_list_fragment_label">Transactions</string>
+    <string name="transaction_details_fragment_label">Details</string>
 
-    <!-- Strings for add_entry_dialog -->
-    <string name="add_entry_dialog_title">Add new Entry</string>
-    <string name="add_entry_dialog_text_description">Description</string>
-    <string name="add_entry_dialog_text_value">Value</string>
-    <string name="add_entry_dialog_text_date">Date</string>
-    <string name="add_entry_dialog_radio_gain">Gain</string>
-    <string name="add_entry_dialog_radio_expense">Expense</string>
+    <!-- Strings for add_transaction_dialog -->
+    <string name="add_transaction_dialog_title">Add Transaction</string>
+    <string name="add_transaction_dialog_text_description">Description</string>
+    <string name="add_transaction_dialog_text_value">Value</string>
+    <string name="add_transaction_dialog_text_date">Date</string>
+    <string name="add_transaction_dialog_radio_gain">Gain</string>
+    <string name="add_transaction_dialog_radio_expense">Expense</string>
 
-    <!-- String for removing entry -->
-    <string name="remove_entry_toast">Removing</string>
-    <string name="remove_entry_dialog_tittle">Remove Entry</string>
+    <!-- String for removing transaction -->
+    <string name="remove_transaction_toast">Removing</string>
+    <string name="remove_transaction_dialog_tittle">Remove</string>
 
     <!-- String for Summary layout -->
     <string name="summary_balance">Balance</string>

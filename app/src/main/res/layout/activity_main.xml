@@ -42,7 +42,7 @@
 
             <TextView
                 android:id="@+id/summary_title"
-                style="@style/EntryListItemTextStyle"
+                style="@style/TransactionListItemTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -63,7 +63,7 @@
 
             <TextView
                 android:id="@+id/summary_balance"
-                style="@style/EntryListItemTextStyle"
+                style="@style/TransactionListItemTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/summary_balance"

@@ -2,13 +2,13 @@ package br.com.tolive.simplewallet.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import br.com.tolive.simplewallet.app.data.EntryRepository
+import br.com.tolive.simplewallet.app.data.TransactionRepository
 
-class EntryViewModelFactory(private val repository: EntryRepository): ViewModelProvider.Factory {
+class TransactionViewModelFactory(private val repository: TransactionRepository): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(EntryListViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(TransactionListViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return EntryListViewModel(repository) as T
+            return TransactionListViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

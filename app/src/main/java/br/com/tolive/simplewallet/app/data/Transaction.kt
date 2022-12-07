@@ -7,9 +7,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.LocalDate
 
-@Entity(tableName = "entries")
-data class Entry(
-    @PrimaryKey(autoGenerate = true) val entryId: Int,
+@Entity(tableName = "transactions")
+data class Transaction(
+    @PrimaryKey(autoGenerate = true) val transactionId: Int,
     @ColumnInfo(name = "value") val value: Double,
     @ColumnInfo(name = "type") val type: Int,
     @ColumnInfo(name = "description") val description: String?,
@@ -17,13 +17,13 @@ data class Entry(
     @ColumnInfo(name = "month") val month: Int,
     @ColumnInfo(name = "year") val year: Int
 ) : Parcelable {
-    constructor(value: Double, type: Int, description: String, entryDate: Date) :
+    constructor(value: Double, type: Int, description: String, transactionDate: Date) :
             this(0, value, type, description,
-                entryDate.day, entryDate.month, entryDate.year) {
-                this.entryDate = entryDate
+                transactionDate.day, transactionDate.month, transactionDate.year) {
+                this.transactionDate = transactionDate
             }
 
-    var entryDate: Date
+    var transactionDate: Date
         get() { return Date(day, month, year) }
         set(value) {}
 
@@ -45,7 +45,7 @@ data class Entry(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(entryId)
+        parcel.writeInt(transactionId)
         parcel.writeDouble(value)
         parcel.writeInt(type)
         parcel.writeString(description)
@@ -58,24 +58,24 @@ data class Entry(
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Entry> {
+    companion object CREATOR : Parcelable.Creator<Transaction> {
         const val TYPE_GAIN = 0
         const val TYPE_EXPENSE = 1
 
-        override fun createFromParcel(parcel: Parcel): Entry {
-            return Entry(parcel)
+        override fun createFromParcel(parcel: Parcel): Transaction {
+            return Transaction(parcel)
         }
 
-        override fun newArray(size: Int): Array<Entry?> {
+        override fun newArray(size: Int): Array<Transaction?> {
             return arrayOfNulls(size)
         }
     }
 
     override fun toString(): String {
-        return "Entry:" +
+        return "Transaction:" +
                 " [description]" + description +
                 " [value]" + value.toString() +
                 " [type]" + type +
-                " [date]" + entryDate.toString()
+                " [date]" + transactionDate.toString()
     }
 }

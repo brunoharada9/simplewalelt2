@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:hint="@string/add_entry_dialog_text_description"
+        android:hint="@string/add_transaction_dialog_text_description"
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:hint="@string/add_entry_dialog_text_value"
+        android:hint="@string/add_transaction_dialog_text_value"
         android:importantForAutofill="no"
         android:inputType="numberDecimal"/>
 
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/add_entry_dialog_radio_gain"/>
+            android:text="@string/add_transaction_dialog_radio_gain"/>
 
         <RadioButton
             android:id="@+id/radio_expense"
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/add_entry_dialog_radio_expense"/>
+            android:text="@string/add_transaction_dialog_radio_expense"/>
     </RadioGroup>
 
 </LinearLayout>

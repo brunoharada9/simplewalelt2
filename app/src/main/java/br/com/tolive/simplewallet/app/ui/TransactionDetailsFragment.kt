@@ -10,17 +10,17 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.transition.TransitionInflater
 import br.com.tolive.simplewallet.app.R
-import br.com.tolive.simplewallet.app.data.Entry
-import br.com.tolive.simplewallet.app.databinding.FragmentEntryDetailsBinding
+import br.com.tolive.simplewallet.app.data.Transaction
+import br.com.tolive.simplewallet.app.databinding.FragmentTransactionDetailsBinding
 import br.com.tolive.simplewallet.app.utils.Utils
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class EntryDetailsFragment : Fragment() {
+class TransactionDetailsFragment : Fragment() {
 
-    private var _binding: FragmentEntryDetailsBinding? = null
+    private var _binding: FragmentTransactionDetailsBinding? = null
 
     private val binding get() = _binding!!
 
@@ -35,11 +35,11 @@ class EntryDetailsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentEntryDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentTransactionDetailsBinding.inflate(inflater, container, false)
 
         val transitionName = arguments?.getString(NAME_KEY)
 
-        ViewCompat.setTransitionName(binding.entryCard, transitionName)
+        ViewCompat.setTransitionName(binding.transactionCard, transitionName)
 
         return binding.root
     }
@@ -57,28 +57,28 @@ class EntryDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val entry: Entry? = getParcelable()
+        val transaction: Transaction? = getParcelable()
 
-        if (entry != null) {
-            if (entry.type == Entry.TYPE_GAIN){
-                binding.entryBackground.setBackgroundResource(R.color.green)
-            } else if (entry.type == Entry.TYPE_EXPENSE) {
-                binding.entryBackground.setBackgroundResource(R.color.red)
+        if (transaction != null) {
+            if (transaction.type == Transaction.TYPE_GAIN){
+                binding.transactionBackground.setBackgroundResource(R.color.green)
+            } else if (transaction.type == Transaction.TYPE_EXPENSE) {
+                binding.transactionBackground.setBackgroundResource(R.color.red)
             }
 
-            binding.entryDescription.text = entry.description.toString()
-            binding.entryDescription.movementMethod = ScrollingMovementMethod()
-            binding.entryValue.text = Utils.getEntryValueFormatted(entry)
-            binding.entryDate.text = entry.entryDate.toString()
+            binding.transactionDescription.text = transaction.description.toString()
+            binding.transactionDescription.movementMethod = ScrollingMovementMethod()
+            binding.transactionValue.text = Utils.getTransactionValueFormatted(transaction)
+            binding.transactionDate.text = transaction.transactionDate.toString()
         }
     }
 
-    private fun getParcelable(): Entry? =
+    private fun getParcelable(): Transaction? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                arguments?.getParcelable(EntryListFragment.KEY_ENTRY_DETAILS, Entry::class.java)
+                arguments?.getParcelable(TransactionListFragment.KEY_ENTRY_DETAILS, Transaction::class.java)
             else -> @Suppress("DEPRECATION")
-                arguments?.getParcelable(EntryListFragment.KEY_ENTRY_DETAILS) as? Entry
+                arguments?.getParcelable(TransactionListFragment.KEY_ENTRY_DETAILS) as? Transaction
         }
 
     override fun onDestroyView() {

@@ -9,13 +9,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>-->
 
-    <!-- Styles for AddEntryDialog -->
+    <!-- Styles for AddTransactionDialog -->
     <style name="MaterialAlertDialogRounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
         <item name="materialAlertDialogTitleTextStyle">@style/BigTitle</item>
     </style>
     <style name="BigTitle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
-        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline5</item>
     </style>
     <style name="DialogCorners">
         <item name="cornerFamily">rounded</item>
@@ -24,7 +24,7 @@
 
     <!-- The default font for RecyclerView items is too small.
     The margin is a simple delimiter between the words. -->
-    <style name="EntryListItemTextStyle">
+    <style name="TransactionListItemTextStyle">
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingLeft">8dp</item>

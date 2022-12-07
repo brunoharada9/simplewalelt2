@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="br.com.tolive.simplewallet.app.ui.EntryListFragment"
-        android:label="@string/entry_list_fragment_label"
-        tools:layout="@layout/fragment_entry_list">
+        android:name="br.com.tolive.simplewallet.app.ui.TransactionListFragment"
+        android:label="@string/transaction_list_fragment_label"
+        tools:layout="@layout/fragment_transaction_list">
 
         <action
-            android:id="@+id/action_EntryListFragment_to_EntryDetailsFragment"
+            android:id="@+id/action_TransactionListFragment_to_TransactionDetailsFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="br.com.tolive.simplewallet.app.ui.EntryDetailsFragment"
-        android:label="@string/entry_details_fragment_label"
-        tools:layout="@layout/fragment_entry_details">
+        android:name="br.com.tolive.simplewallet.app.ui.TransactionDetailsFragment"
+        android:label="@string/transaction_details_fragment_label"
+        tools:layout="@layout/fragment_transaction_details">
 
         <action
-            android:id="@+id/action_EntryDetailsFragment_to_EntryListFragment"
+            android:id="@+id/action_TransactionDetailsFragment_to_TransactionListFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

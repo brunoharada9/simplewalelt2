@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.EntryListFragment">
+    tools:context=".ui.TransactionListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/entry_list"
+        android:id="@+id/transaction_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -17,7 +17,7 @@
         android:paddingBottom="@dimen/card_side_margin"
         android:layout_marginBottom="@dimen/summary_height"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/entry_list_item"
+        tools:listitem="@layout/transaction_list_item"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

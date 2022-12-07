@@ -4,34 +4,32 @@ import android.app.Dialog
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
 import br.com.tolive.simplewallet.app.R
-import br.com.tolive.simplewallet.app.adapters.EntryListAdapter
-import br.com.tolive.simplewallet.app.data.Entry
+import br.com.tolive.simplewallet.app.adapters.TransactionListAdapter
+import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.launch
 
-class RemoveEntryDialog(var entry: Entry, var onEntryLongClick: EntryListAdapter.OnEntryClickListener?) : DialogFragment() {
+class RemoveTransactionDialog(var transaction: Transaction, var onTransactionLongClick: TransactionListAdapter.OnTransactionClickListener?) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
-        builder.setTitle(R.string.remove_entry_dialog_tittle)
-        builder.setMessage("Do you want to remove this entry?\n\n" +
+        builder.setTitle(R.string.remove_transaction_dialog_tittle)
+        builder.setMessage("Do you want to remove this transaction?\n\n" +
                 "Description\n" +
-                "${entry.description}\n\n" +
+                "${transaction.description}\n\n" +
                 "Value\n" +
-                Utils.getEntryValueFormatted(entry)
+                Utils.getTransactionValueFormatted(transaction)
         )
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
-            Toast.makeText(context, R.string.remove_entry_toast, Toast.LENGTH_SHORT).show()
-            onEntryLongClick?.onEntryLongClick(entry)
+            Toast.makeText(context, R.string.remove_transaction_toast, Toast.LENGTH_SHORT).show()
+            onTransactionLongClick?.onTransactionLongClick(transaction)
         }
         builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
         return builder.create()
     }
 
     companion object {
-        const val TAG: String = "RemoveEntryDialog"
+        const val TAG: String = "RemoveTransactionDialog"
     }
 }

@@ -3,7 +3,7 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/entry_card"
+    android:id="@+id/transaction_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_small"
@@ -14,15 +14,15 @@
     app:cardElevation="2dp">
 
     <RelativeLayout
-        android:id="@+id/entry_background"
+        android:id="@+id/transaction_background"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/entry_list_min_height"
+        android:layout_height="@dimen/transaction_list_min_height"
         android:background="@color/green"
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/entry_description"
-            style="@style/EntryListItemTextStyle"
+            android:id="@+id/transaction_description"
+            style="@style/TransactionListItemTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="4"
@@ -40,12 +40,12 @@
             android:layout_alignParentEnd="true"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_small"
-            android:layout_alignTop="@+id/entry_date"
+            android:layout_alignTop="@+id/transaction_date"
             android:background="@color/white_op"/>
 
         <TextView
-            android:id="@+id/entry_date"
-            style="@style/EntryListItemTextStyle"
+            android:id="@+id/transaction_date"
+            style="@style/TransactionListItemTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/margin_extra_small"
@@ -53,12 +53,12 @@
             android:layout_alignParentBottom="true"/>
 
         <TextView
-            android:id="@+id/entry_value"
-            style="@style/EntryListItemTextStyle"
+            android:id="@+id/transaction_value"
+            style="@style/TransactionListItemTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
-            android:layout_alignStart="@id/entry_date"
+            android:layout_alignStart="@id/transaction_date"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"/>
     </RelativeLayout>

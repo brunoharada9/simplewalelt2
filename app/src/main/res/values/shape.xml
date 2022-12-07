@@ -17,7 +17,7 @@
 
 <resources>
 
-    <style name="ShapeAppearance.Entry.Card" parent="ShapeAppearance.MaterialComponents">
+    <style name="ShapeAppearance.Transaction.Card" parent="ShapeAppearance.MaterialComponents">
         <item name="cornerFamily">rounded</item>
 
         <item name="cornerSizeTopLeft">0dp</item>
@@ -27,7 +27,7 @@
     </style>
 
     <style
-        name="ShapeAppearance.Entry.FAB"
+        name="ShapeAppearance.Transaction.FAB"
         parent="ShapeAppearance.MaterialComponents.SmallComponent" />
 
 </resources>
