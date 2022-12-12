@@ -12,7 +12,7 @@ import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.utils.Utils
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class AddTransactionDialog(var addTransactionListener: MainActivity.OnAddTransactionListener) : DialogFragment() {
+class AddTransactionDialog(var onMainActivityListener: MainActivity.OnMainActivityListener) : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
@@ -37,7 +37,7 @@ class AddTransactionDialog(var addTransactionListener: MainActivity.OnAddTransac
                 Transaction.Date(datePicker.dayOfMonth, datePicker.month, datePicker.year)
 
             val transaction = Transaction(value, transactionType, editTextDescription.text.toString(), transactionDate)
-            addTransactionListener.onAddTransaction(transaction)
+            onMainActivityListener.onAddTransaction(transaction)
         }
         builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
         return builder.create()

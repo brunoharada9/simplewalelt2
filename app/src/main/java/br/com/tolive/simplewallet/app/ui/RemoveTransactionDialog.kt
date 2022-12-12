@@ -15,11 +15,14 @@ class RemoveTransactionDialog(var transaction: Transaction, var onTransactionLon
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = MaterialAlertDialogBuilder(requireActivity(), R.style.MaterialAlertDialogRounded)
         builder.setTitle(R.string.remove_transaction_dialog_tittle)
+        // TODO create a layout for this message
         builder.setMessage("Do you want to remove this transaction?\n\n" +
                 "Description\n" +
                 "${transaction.description}\n\n" +
                 "Value\n" +
-                Utils.getTransactionValueFormatted(transaction)
+                "${Utils.getTransactionValueFormatted(transaction)}\n\n" +
+                "Date\n" +
+                transaction.transactionDate
         )
         builder.setPositiveButton(android.R.string.ok) { _, _ ->
             Toast.makeText(context, R.string.remove_transaction_toast, Toast.LENGTH_SHORT).show()

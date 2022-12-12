@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.TranslateAnimation
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -24,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+    private var summaryHidden: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,24 +38,27 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        // TODO filter to show month or year
-        binding.summaryTitle.text = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase()
+        val cal: Calendar = Calendar.getInstance()
+        binding.summaryTitle.text = getString(R.string.summary_date,
+            cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase(),
+        cal.get(Calendar.YEAR))
 
         binding.fab.setOnClickListener {
             val transactionListFragment : TransactionListFragment? = navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
             if (transactionListFragment != null) {
-                addTransactionListener = transactionListFragment
-                AddTransactionDialog(addTransactionListener as TransactionListFragment).show(supportFragmentManager, AddTransactionDialog.TAG)
+                mainActivityListener = transactionListFragment
+                AddTransactionDialog(mainActivityListener as TransactionListFragment).show(supportFragmentManager, AddTransactionDialog.TAG)
             }
         }
     }
 
     // Create Listener to handle the database insertion on TransactionListFragment
-    interface OnAddTransactionListener {
+    interface OnMainActivityListener {
         fun onAddTransaction(transaction: Transaction)
+        fun onFilterApplied(month: Int, year: Int)
     }
 
-    private var addTransactionListener: OnAddTransactionListener? = null
+    private var mainActivityListener: OnMainActivityListener? = null
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -68,8 +72,12 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_filter -> {
-                // TODO Open filter dialog to select by month or year
-                Toast.makeText(this, "Open filter dialog", Toast.LENGTH_SHORT).show()
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+                val transactionListFragment : TransactionListFragment? = navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
+                if (transactionListFragment != null) {
+                    mainActivityListener = transactionListFragment
+                    FilterDialog(mainActivityListener as TransactionListFragment).show(supportFragmentManager, FilterDialog.TAG)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -82,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    fun updateSummary(sum: Double) {
+    fun updateSummarySum(sum: Double) {
         binding.summaryValue.text = Utils.getValueFormatted(sum)
         if (sum < 0) {
             binding.summaryValue.setTextAppearance(R.style.SummaryTextStyleRed)
@@ -96,14 +104,28 @@ class MainActivity : AppCompatActivity() {
         binding.summaryStroke.paint.style = Paint.Style.STROKE
     }
 
-    fun showSummaryAndFab() {
-        binding.fab.show()
+    fun updateSummaryMonth(month: Int, year: Int) {
+        val cal: Calendar = Calendar.getInstance()
+        cal.set(Calendar.MONTH, month)
+        cal.set(Calendar.YEAR, year)
+        binding.summaryTitle.text = getString(R.string.summary_date,
+            cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase(),
+            cal.get(Calendar.YEAR))
+    }
 
-        val animate = TranslateAnimation(ANIMATION_0F,ANIMATION_0F,
-            binding.summaryCard.height.toFloat(), ANIMATION_0F)
-        animate.duration = SUMMARY_ANIMATION_TIME
-        animate.fillAfter = true
-        binding.summaryCard.startAnimation(animate)
+    fun showSummaryAndFab() {
+        if (summaryHidden) {
+            binding.fab.show()
+
+            val animate = TranslateAnimation(
+                ANIMATION_0F, ANIMATION_0F,
+                binding.summaryCard.height.toFloat(), ANIMATION_0F
+            )
+            animate.duration = SUMMARY_ANIMATION_TIME
+            animate.fillAfter = true
+            binding.summaryCard.startAnimation(animate)
+        }
+        summaryHidden = false
     }
 
     fun hideSummaryAndFab() {
@@ -114,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         animate.duration = SUMMARY_ANIMATION_TIME
         animate.fillAfter = true
         binding.summaryCard.startAnimation(animate)
+        summaryHidden = true
     }
 
     companion object {

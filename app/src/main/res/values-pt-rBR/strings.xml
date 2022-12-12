@@ -20,6 +20,11 @@
     <string name="remove_transaction_toast">Removendo</string>
     <string name="remove_transaction_dialog_tittle">Remover</string>
 
+    <!-- Strings for filter_dialog -->
+    <string name="filter_dialog_title">Escolher período</string>
+    <string name="filter_dialog_month">Mês</string>
+    <string name="filter_dialog_year">Ano</string>
+
     <!-- String for Summary layout -->
     <string name="summary_balance">Saldo</string>
 

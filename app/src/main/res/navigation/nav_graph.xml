@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_TransactionListFragment_to_TransactionDetailsFragment"
             app:destination="@id/SecondFragment" />
+
+        <action
+            android:id="@+id/action_refresh_TransactionListFragment"
+            app:destination="@id/FirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"

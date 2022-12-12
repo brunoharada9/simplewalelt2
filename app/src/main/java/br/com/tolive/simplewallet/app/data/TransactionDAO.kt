@@ -17,12 +17,9 @@ interface TransactionDAO {
     @Query("SELECT * FROM transactions")
     fun getTransactions(): Flow<List<Transaction>>
 
-    @Query("SELECT SUM(value) FROM transactions")
-    fun getValueSum(): Double
-
     @Query("SELECT * FROM transactions WHERE year = :year")
     fun getByYear(year: Int):Flow<List<Transaction>>
 
-    @Query("SELECT * FROM transactions WHERE month = :month")
-    fun getByMonth(month: Int):Flow<List<Transaction>>
+    @Query("SELECT * FROM transactions WHERE month = :month AND year = :year")
+    fun getByMonth(month: Int, year: Int):Flow<List<Transaction>>
 }

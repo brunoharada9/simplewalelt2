@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import br.com.tolive.simplewallet.app.R
@@ -16,13 +15,13 @@ import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.databinding.FragmentTransactionListBinding
 import br.com.tolive.simplewallet.app.viewmodel.TransactionListViewModel
 import br.com.tolive.simplewallet.app.viewmodel.TransactionViewModelFactory
-import kotlinx.coroutines.launch
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class TransactionListFragment : Fragment(), MainActivity.OnAddTransactionListener, TransactionListAdapter.OnTransactionClickListener {
+class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
+    TransactionListAdapter.OnTransactionClickListener {
 
     private var _binding: FragmentTransactionListBinding? = null
     private lateinit var _activity: MainActivity
@@ -47,14 +46,16 @@ class TransactionListFragment : Fragment(), MainActivity.OnAddTransactionListene
 
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        viewModel.allTransactions.observe(viewLifecycleOwner) { transactions ->
+        viewModel.transactions.removeObservers(viewLifecycleOwner)
+
+        viewModel.transactions.observe(viewLifecycleOwner) { transactions ->
             // Update the cached copy of the transactions in the adapter.
-            transactions.let {
+            transactions.let { it ->
                 adapter.submitList(it) {
                     binding.transactionList.scrollToPosition(transactions.size - 1)
                 }
 
-                _activity.updateSummary(viewModel.sum)
+                _activity.updateSummarySum(transactions.sumOf { it.value })
             }
         }
 
@@ -81,15 +82,18 @@ class TransactionListFragment : Fragment(), MainActivity.OnAddTransactionListene
     }
 
     override fun onTransactionLongClick(transaction: Transaction) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.delete(transaction)
-        }
+        viewModel.delete(transaction)
     }
 
     override fun onAddTransaction(transaction: Transaction) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.insert(transaction)
-        }
+        viewModel.insert(transaction)
+    }
+
+    override fun onFilterApplied(month: Int, year: Int) {
+        viewModel.setMonth(month, year)
+        // Needed this to refresh the listview, don't know why
+        _activity.updateSummaryMonth(month, year)
+        findNavController().navigate(R.id.action_refresh_TransactionListFragment)
     }
 
     companion object {

@@ -1,6 +1,8 @@
 package br.com.tolive.simplewallet.app.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.data.TransactionRepository
 import br.com.tolive.simplewallet.app.ui.TransactionListFragment
@@ -19,13 +21,14 @@ class TransactionListViewModel constructor (
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
-    val allTransactions: LiveData<List<Transaction>> = transactionRepository.allTransactions.asLiveData()
+    var transactions: LiveData<List<Transaction>> = transactionRepository.transactions.asLiveData()
 
-    var sum = 0.0
-
-    init {
-        CoroutineScope(Dispatchers.IO).launch {
-            sum = transactionRepository.getValueSum()
+    /**
+     * Launching a new coroutine to insert the data in a non-blocking way
+     */
+    fun setMonth(month: Int, year: Int) = CoroutineScope(Dispatchers.IO).launch {
+        transactionRepository.setByMonth(month, year) {
+            transactions = it.asLiveData()
         }
     }
 
@@ -34,8 +37,6 @@ class TransactionListViewModel constructor (
      */
     fun insert(transaction: Transaction) = CoroutineScope(Dispatchers.IO).launch {
         transactionRepository.insert(transaction)
-        //sum += transaction.value
-        sum = transactionRepository.getValueSum()
     }
 
     /**
@@ -43,7 +44,5 @@ class TransactionListViewModel constructor (
      */
     fun delete(transaction: Transaction) = CoroutineScope(Dispatchers.IO).launch {
         transactionRepository.delete(transaction)
-        //sum -= transaction.value
-        sum = transactionRepository.getValueSum()
     }
 }
