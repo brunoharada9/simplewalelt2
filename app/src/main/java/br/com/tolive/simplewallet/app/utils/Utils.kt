@@ -21,15 +21,12 @@ class Utils {
         }
 
         fun getTransactionValueFormatted(transaction: Transaction): String? {
-            val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance()
-            numberFormat.currency = Currency.getInstance("USD")
-
-            return numberFormat.format(transaction.value)
+            return getValueFormatted(transaction.value)
         }
 
         fun getValueFormatted(value: Double): String? {
             val numberFormat: NumberFormat = NumberFormat.getCurrencyInstance()
-            numberFormat.currency = Currency.getInstance("USD")
+            numberFormat.currency = Currency.getInstance(Locale.getDefault())
 
             return numberFormat.format(value)
         }
