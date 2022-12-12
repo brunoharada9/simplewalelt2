@@ -13,6 +13,7 @@
     <style name="MaterialAlertDialogRounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
         <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
         <item name="materialAlertDialogTitleTextStyle">@style/BigTitle</item>
+        <item name="materialAlertDialogBodyTextStyle">?attr/textAppearanceBody1</item>
     </style>
     <style name="BigTitle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
         <item name="android:textAppearance">?attr/textAppearanceHeadline5</item>
