@@ -32,6 +32,10 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
 
     private val binding get() = _binding!!
 
+    // Control if transaction list go to last position
+    // it should not go to last position if coming from details fragment because of the animation
+    private var sGoToLastPosition: Boolean = false
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -52,7 +56,9 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
             // Update the cached copy of the transactions in the adapter.
             transactions.let { it ->
                 adapter.submitList(it) {
-                    binding.transactionList.scrollToPosition(transactions.size - 1)
+                    if (sGoToLastPosition) {
+                        binding.transactionList.scrollToPosition(transactions.size - 1)
+                    }
                 }
 
                 _activity.updateSummarySum(transactions.sumOf { it.value })
@@ -78,21 +84,25 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
             transactionCard to transactionCard.transitionName
         )
         _activity.hideSummaryAndFab()
+        sGoToLastPosition = false
         findNavController().navigate(R.id.action_TransactionListFragment_to_TransactionDetailsFragment, args, null, extras)
     }
 
     override fun onTransactionLongClick(transaction: Transaction) {
         viewModel.delete(transaction)
+        sGoToLastPosition = true
     }
 
     override fun onAddTransaction(transaction: Transaction) {
         viewModel.insert(transaction)
+        sGoToLastPosition = true
     }
 
     override fun onFilterApplied(month: Int, year: Int) {
         viewModel.setMonth(month, year)
         // Needed this to refresh the listview, don't know why
         _activity.updateSummaryMonth(month, year)
+        sGoToLastPosition = true
         findNavController().navigate(R.id.action_refresh_TransactionListFragment)
     }
 
