@@ -103,4 +103,16 @@
         android:contentDescription="@string/fab_content"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <!-- Sample adUnitId: ca-app-pub-3940256099942544/6300978111 -->
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_gravity="top|end|start"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/adUnitId">
+    </com.google.android.gms.ads.AdView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -15,6 +15,8 @@ import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.databinding.ActivityMainBinding
 import br.com.tolive.simplewallet.app.utils.Utils
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import java.util.*
 
 
@@ -30,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MobileAds.initialize(this) {}
+        binding.adView.loadAd(AdRequest.Builder().build())
 
         setSupportActionBar(binding.toolbar)
 
