@@ -3,14 +3,21 @@
     <style name="Theme.SimpleWallet2" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue_gray_200</item>
-        <item name="colorPrimaryVariant">@color/blue_gray_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/blue_gray_dark</item>
+        <item name="colorOnPrimary">@color/white_op</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/orange_500</item>
-        <item name="colorSecondaryVariant">@color/orange_500</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/orange_light</item>
+        <item name="colorOnSecondary">@color/white_op</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.SimpleWallet2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- color used by the toolbar title -->
+        <item name="android:textColorPrimary">@color/white_op</item>
+        <!-- color used by navigation icon and overflow icon -->
+        <item name="colorOnPrimary">@color/white_op</item>
     </style>
 </resources>

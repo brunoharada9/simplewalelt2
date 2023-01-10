@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="blue_gray_200">#8eacbb</color>
-    <color name="blue_gray_500">#607d8b</color>
-    <color name="blue_gray_700">#34515e</color>
+    <color name="blue_gray_light">#ffffff</color>
+    <color name="blue_gray_dark">#9ea7aa</color>
+
+    <color name="gray_200">#e0e0e0</color>
+    <color name="gray_light">#ffffff</color>
+    <color name="gray_dark">#aeaeae</color>
 
     <color name="orange_500">#ff9800</color>
+    <color name="orange_light">#ffc947</color>
 
-    <color name="green">#4caf50</color>
-    <color name="red">#f44336</color>
+    <color name="green">#a5d6a7</color>
+    <color name="red">#ef9a9a</color>
 
     <color name="black">#80000000</color>
     <color name="white">#FFFFFFFF</color>

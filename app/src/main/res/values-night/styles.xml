@@ -1,28 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Base application theme.
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        Customize your theme here.
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>-->
-
-    <!-- Styles for AddTransactionDialog -->
-    <style name="MaterialAlertDialogRounded" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
-        <item name="materialAlertDialogTitleTextStyle">@style/BigTitle</item>
-        <item name="materialAlertDialogBodyTextStyle">?attr/textAppearanceBody1</item>
-    </style>
-    <style name="BigTitle" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
-        <item name="android:textAppearance">?attr/textAppearanceHeadline5</item>
-    </style>
-    <style name="DialogCorners">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
-    </style>
-
     <!-- The default font for RecyclerView items is too small.
     The margin is a simple delimiter between the words. -->
     <style name="TransactionListItemTextStyle">
@@ -30,12 +8,12 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white_op</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
     <style name="SummaryBackground">
-        <item name="android:background">@color/gray_200</item>
+        <item name="android:background">@color/blue_gray_200</item>
         <item name="android:padding">@dimen/margin_normal</item>
     </style>
 
@@ -44,7 +22,7 @@
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white_op</item>
         <item name="android:textAppearance">@android:style/TextAppearance.Large</item>
     </style>
 
@@ -69,6 +47,6 @@
     <style name="ViewDivisor">
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:background">@color/black</item>
+        <item name="android:background">@color/white_op</item>
     </style>
 </resources>

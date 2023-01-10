@@ -35,14 +35,13 @@
 
         <RelativeLayout
             android:id="@+id/layout_summary"
+            style="@style/SummaryBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/margin_normal"
-            android:background="@color/blue_gray_500">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/summary_title"
-                style="@style/TransactionListItemTextStyle"
+                style="@style/SummaryTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -56,14 +55,12 @@
                 android:layout_height="@dimen/margin_separator"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:layout_alignTop="@+id/summary_balance"
-                android:background="@color/white_op"/>
+                style="@style/ViewDivisor"
+                android:layout_alignTop="@+id/summary_balance"/>
 
             <TextView
                 android:id="@+id/summary_balance"
-                style="@style/TransactionListItemTextStyle"
+                style="@style/SummaryTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/summary_balance"
