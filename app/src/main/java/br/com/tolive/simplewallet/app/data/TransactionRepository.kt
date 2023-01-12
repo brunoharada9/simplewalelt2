@@ -36,5 +36,7 @@ class TransactionRepository constructor(
         transactionDAO.insertTransaction(transaction)
     }
 
+    fun update(transaction: Transaction) = transactionDAO.update(transaction)
+
     fun delete(transaction: Transaction) = transactionDAO.delete(transaction)
 }

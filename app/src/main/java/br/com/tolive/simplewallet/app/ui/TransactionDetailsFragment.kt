@@ -3,23 +3,35 @@ package br.com.tolive.simplewallet.app.ui
 import android.os.Build
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.transition.TransitionInflater
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Transaction
 import br.com.tolive.simplewallet.app.databinding.FragmentTransactionDetailsBinding
 import br.com.tolive.simplewallet.app.utils.Utils
+import br.com.tolive.simplewallet.app.viewmodel.TransactionDetailsViewModel
+import br.com.tolive.simplewallet.app.viewmodel.TransactionDetailsViewModelFactory
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class TransactionDetailsFragment : BaseMenuAnimFragment() {
+class TransactionDetailsFragment : BaseMenuAnimFragment(), RemoveTransactionDialog.OnRemoveTransactionListener {
 
     private var _binding: FragmentTransactionDetailsBinding? = null
+    private var transaction: Transaction? = null
+
+    private val viewModel: TransactionDetailsViewModel by viewModels {
+        TransactionDetailsViewModelFactory((activity?.application as SimpleWalletApplication).repository)
+    }
 
     private val binding get() = _binding!!
 
@@ -44,8 +56,15 @@ class TransactionDetailsFragment : BaseMenuAnimFragment() {
                 true
             }
             R.id.action_delete -> {
-                // TODO:
-                Toast.makeText(activity, "Delete", Toast.LENGTH_SHORT).show()
+                if (transaction != null) {
+                    RemoveTransactionDialog(
+                        transaction!!,
+                        this
+                    ).show(
+                        parentFragmentManager,
+                        RemoveTransactionDialog.TAG
+                    )
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -79,20 +98,27 @@ class TransactionDetailsFragment : BaseMenuAnimFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val transaction: Transaction? = getParcelable()
+        transaction = getParcelable()
 
         if (transaction != null) {
-            if (transaction.type == Transaction.TYPE_GAIN) {
+            if (transaction!!.type == Transaction.TYPE_GAIN) {
                 binding.transactionBackground.setBackgroundResource(R.color.green)
-            } else if (transaction.type == Transaction.TYPE_EXPENSE) {
+            } else if (transaction!!.type == Transaction.TYPE_EXPENSE) {
                 binding.transactionBackground.setBackgroundResource(R.color.red)
             }
 
-            binding.transactionDescription.text = transaction.description.toString()
+            binding.transactionDescription.text = transaction!!.description.toString()
             binding.transactionDescription.movementMethod = ScrollingMovementMethod()
-            binding.transactionValue.text = Utils.getTransactionValueFormatted(transaction)
-            binding.transactionDate.text = transaction.transactionDate.toString()
+            binding.transactionValue.text = Utils.getTransactionValueFormatted(transaction!!)
+            binding.transactionDate.text = transaction!!.transactionDate.toString()
         }
+    }
+
+    override fun onRemoveTransaction(transaction: Transaction) {
+        viewModel.delete(transaction)
+        findNavController().navigate(
+            R.id.action_TransactionDetailsFragment_to_TransactionListFragment
+        )
     }
 
     private fun getParcelable(): Transaction? =

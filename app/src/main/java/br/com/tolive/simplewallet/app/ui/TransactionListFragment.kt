@@ -1,7 +1,10 @@
 package br.com.tolive.simplewallet.app.ui
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +22,7 @@ import br.com.tolive.simplewallet.app.viewmodel.TransactionViewModelFactory
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class TransactionListFragment : BaseMenuAnimFragment(), MainActivity.OnMainActivityListener,
-    TransactionListAdapter.OnTransactionClickListener {
+    TransactionListAdapter.OnTransactionClickListener, RemoveTransactionDialog.OnRemoveTransactionListener {
 
     private var _binding: FragmentTransactionListBinding? = null
 
@@ -104,9 +107,19 @@ class TransactionListFragment : BaseMenuAnimFragment(), MainActivity.OnMainActiv
         )
     }
 
-    override fun onTransactionLongClick(transaction: Transaction) {
+    override fun onRemoveTransaction(transaction: Transaction) {
         viewModel.delete(transaction)
         sGoToLastPosition = true
+    }
+
+    override fun onTransactionLongClick(transaction: Transaction) {
+        RemoveTransactionDialog(
+            transaction,
+            this
+        ).show(
+            parentFragmentManager,
+            RemoveTransactionDialog.TAG
+        )
     }
 
     override fun onAddTransaction(transaction: Transaction) {

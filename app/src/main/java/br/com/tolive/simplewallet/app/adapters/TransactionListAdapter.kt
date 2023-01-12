@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,17 +12,20 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.tolive.simplewallet.app.ui.TransactionListFragment
 import br.com.tolive.simplewallet.app.R
 import br.com.tolive.simplewallet.app.data.Transaction
-import br.com.tolive.simplewallet.app.ui.RemoveTransactionDialog
 import br.com.tolive.simplewallet.app.utils.Utils
 import com.google.android.material.card.MaterialCardView
 
 /**
  * Adapter for the [RecyclerView] in [TransactionListFragment].
  */
-class TransactionListAdapter (var onTransactionClickListener : OnTransactionClickListener) : ListAdapter<Transaction, TransactionListAdapter.TransactionListViewHolder>(TransactionsComparator()) {
+class TransactionListAdapter(var onTransactionClickListener: OnTransactionClickListener) :
+    ListAdapter<Transaction, TransactionListAdapter.TransactionListViewHolder>(
+        TransactionsComparator()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionListViewHolder {
-        val transactionListViewHolder: TransactionListViewHolder = TransactionListViewHolder.create(parent)
+        val transactionListViewHolder: TransactionListViewHolder =
+            TransactionListViewHolder.create(parent)
         transactionListViewHolder.setOnTransactionLongClick(onTransactionClickListener)
 
         return transactionListViewHolder
@@ -42,9 +44,11 @@ class TransactionListAdapter (var onTransactionClickListener : OnTransactionClic
 
     class TransactionListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val transactionCard: MaterialCardView = itemView.findViewById(R.id.transaction_card)
-        private val transactionBackground: RelativeLayout = itemView.findViewById(R.id.transaction_background)
+        private val transactionBackground: RelativeLayout =
+            itemView.findViewById(R.id.transaction_background)
 
-        private val transactionDescription: TextView = itemView.findViewById(R.id.transaction_description)
+        private val transactionDescription: TextView =
+            itemView.findViewById(R.id.transaction_description)
         private val transactionValue: TextView = itemView.findViewById(R.id.transaction_value)
         private val transactionDate: TextView = itemView.findViewById(R.id.transaction_date)
 
@@ -55,7 +59,7 @@ class TransactionListAdapter (var onTransactionClickListener : OnTransactionClic
         }
 
         fun bind(currentTransaction: Transaction, position: Int) {
-            if (currentTransaction.type == Transaction.TYPE_GAIN){
+            if (currentTransaction.type == Transaction.TYPE_GAIN) {
                 transactionBackground.setBackgroundResource(R.color.green)
             } else if (currentTransaction.type == Transaction.TYPE_EXPENSE) {
                 transactionBackground.setBackgroundResource(R.color.red)
@@ -70,8 +74,8 @@ class TransactionListAdapter (var onTransactionClickListener : OnTransactionClic
                 onTransactionLongClick?.onTransactionClick(currentTransaction, transactionCard)
             }
 
-            transactionCard.setOnLongClickListener{
-                RemoveTransactionDialog(currentTransaction, onTransactionLongClick).show((itemView.context as AppCompatActivity).supportFragmentManager, RemoveTransactionDialog.TAG)
+            transactionCard.setOnLongClickListener {
+                onTransactionLongClick?.onTransactionLongClick(currentTransaction)
                 return@setOnLongClickListener true
             }
 

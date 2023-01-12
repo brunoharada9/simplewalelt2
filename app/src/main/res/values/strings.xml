@@ -17,8 +17,15 @@
     <string name="add_transaction_dialog_radio_expense">Expense</string>
 
     <!-- String for removing transaction -->
-    <string name="remove_transaction_toast">Removing</string>
+    <string name="remove_transaction_toast">Removed</string>
     <string name="remove_transaction_dialog_tittle">Remove</string>
+    <string name="remove_transaction_message">"Do you want to remove this transaction?\n\n"
+                    "Description\n"
+                    "%s\n\n"
+                    "Value\n"
+                    "%s\n\n"
+                    "Date\n"
+                    "%s"</string>
 
     <!-- Strings for filter_dialog -->
     <string name="filter_dialog_title">Choose period</string>

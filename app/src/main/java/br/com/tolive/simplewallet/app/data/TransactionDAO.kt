@@ -8,6 +8,9 @@ interface TransactionDAO {
     @Insert (onConflict = OnConflictStrategy.IGNORE)
     fun insertTransaction(vararg transaction: Transaction)
 
+    @Update
+    fun update(transaction: Transaction)
+
     @Delete
     fun delete(transaction: Transaction)
 

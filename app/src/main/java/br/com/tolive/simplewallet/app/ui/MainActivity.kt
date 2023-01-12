@@ -38,21 +38,28 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
         val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         val cal: Calendar = Calendar.getInstance()
-        binding.summaryTitle.text = getString(R.string.summary_date,
+        binding.summaryTitle.text = getString(
+            R.string.summary_date,
             cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase(),
-        cal.get(Calendar.YEAR))
+            cal.get(Calendar.YEAR)
+        )
 
         binding.fab.setOnClickListener {
-            val transactionListFragment : TransactionListFragment? = navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
+            val transactionListFragment: TransactionListFragment? =
+                navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
             if (transactionListFragment != null) {
                 mainActivityListener = transactionListFragment
-                AddTransactionDialog(mainActivityListener as TransactionListFragment).show(supportFragmentManager, AddTransactionDialog.TAG)
+                AddTransactionDialog(mainActivityListener as TransactionListFragment).show(
+                    supportFragmentManager,
+                    AddTransactionDialog.TAG
+                )
             }
         }
     }
@@ -87,9 +94,11 @@ class MainActivity : AppCompatActivity() {
         val cal: Calendar = Calendar.getInstance()
         cal.set(Calendar.MONTH, month)
         cal.set(Calendar.YEAR, year)
-        binding.summaryTitle.text = getString(R.string.summary_date,
+        binding.summaryTitle.text = getString(
+            R.string.summary_date,
             cal.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())?.uppercase(),
-            cal.get(Calendar.YEAR))
+            cal.get(Calendar.YEAR)
+        )
     }
 
     fun showSummaryAndFab() {
@@ -110,8 +119,10 @@ class MainActivity : AppCompatActivity() {
     fun hideSummaryAndFab() {
         binding.fab.hide()
 
-        val animate = TranslateAnimation(ANIMATION_0F,ANIMATION_0F,
-            ANIMATION_0F, binding.summaryCard.height.toFloat())
+        val animate = TranslateAnimation(
+            ANIMATION_0F, ANIMATION_0F,
+            ANIMATION_0F, binding.summaryCard.height.toFloat()
+        )
         animate.duration = SUMMARY_ANIMATION_TIME
         animate.fillAfter = true
         binding.summaryCard.startAnimation(animate)
