@@ -1,5 +1,6 @@
 package br.com.tolive.simplewallet.app.utils
 
+import android.content.res.Resources
 import android.widget.EditText
 import br.com.tolive.simplewallet.app.data.Transaction
 import java.text.NumberFormat
@@ -29,6 +30,10 @@ class Utils {
             numberFormat.currency = Currency.getInstance(Locale.getDefault())
 
             return numberFormat.format(value)
+        }
+
+        fun dpToPx(dp: Int, resources: Resources): Int {
+            return (dp * resources.displayMetrics.density).toInt()
         }
     }
 }

@@ -2,8 +2,6 @@ package br.com.tolive.simplewallet.app.ui
 
 import android.graphics.Paint
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.animation.TranslateAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -24,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+
+    private var mainActivityListener: OnMainActivityListener? = null
 
     private var summaryHidden: Boolean = false
 
@@ -61,32 +61,6 @@ class MainActivity : AppCompatActivity() {
     interface OnMainActivityListener {
         fun onAddTransaction(transaction: Transaction)
         fun onFilterApplied(month: Int, year: Int)
-    }
-
-    private var mainActivityListener: OnMainActivityListener? = null
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_filter -> {
-                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-                val transactionListFragment : TransactionListFragment? = navHostFragment.childFragmentManager.fragments[0] as? TransactionListFragment
-                if (transactionListFragment != null) {
-                    mainActivityListener = transactionListFragment
-                    FilterDialog(mainActivityListener as TransactionListFragment).show(supportFragmentManager, FilterDialog.TAG)
-                }
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -1,9 +1,7 @@
 package br.com.tolive.simplewallet.app.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,13 +18,12 @@ import br.com.tolive.simplewallet.app.viewmodel.TransactionViewModelFactory
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
+class TransactionListFragment : BaseMenuAnimFragment(), MainActivity.OnMainActivityListener,
     TransactionListAdapter.OnTransactionClickListener {
 
     private var _binding: FragmentTransactionListBinding? = null
-    private lateinit var _activity: MainActivity
 
-    private val viewModel: TransactionListViewModel by viewModels{
+    private val viewModel: TransactionListViewModel by viewModels {
         TransactionViewModelFactory((activity?.application as SimpleWalletApplication).repository)
     }
 
@@ -37,11 +34,12 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
     private var sGoToLastPosition: Boolean = false
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        _activity = activity as MainActivity
-        _activity.showSummaryAndFab()
+        menuRes = R.menu.menu_transaction_list
+
+        mainActivity.showSummaryAndFab()
 
         _binding = FragmentTransactionListBinding.inflate(inflater, container, false)
 
@@ -61,7 +59,7 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
                     }
                 }
 
-                _activity.updateSummarySum(transactions.sumOf { it.value })
+                mainActivity.updateSummarySum(transactions.sumOf { it.value })
             }
         }
 
@@ -77,15 +75,33 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
         _binding = null
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_filter -> {
+                FilterDialog(this).show(parentFragmentManager, FilterDialog.TAG)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onTransactionClick(transaction: Transaction, transactionCard: View) {
         val args = TransactionDetailsFragment.getBundle(transactionCard.transitionName)
         args.putParcelable(KEY_ENTRY_DETAILS, transaction)
         val extras = FragmentNavigatorExtras(
             transactionCard to transactionCard.transitionName
         )
-        _activity.hideSummaryAndFab()
+        mainActivity.hideSummaryAndFab()
         sGoToLastPosition = false
-        findNavController().navigate(R.id.action_TransactionListFragment_to_TransactionDetailsFragment, args, null, extras)
+        findNavController().navigate(
+            R.id.action_TransactionListFragment_to_TransactionDetailsFragment,
+            args,
+            null,
+            extras
+        )
     }
 
     override fun onTransactionLongClick(transaction: Transaction) {
@@ -101,7 +117,7 @@ class TransactionListFragment : Fragment(), MainActivity.OnMainActivityListener,
     override fun onFilterApplied(month: Int, year: Int) {
         viewModel.setMonth(month, year)
         // Needed this to refresh the listview, don't know why
-        _activity.updateSummaryMonth(month, year)
+        mainActivity.updateSummaryMonth(month, year)
         sGoToLastPosition = true
         findNavController().navigate(R.id.action_refresh_TransactionListFragment)
     }
