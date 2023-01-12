@@ -116,9 +116,7 @@ class TransactionDetailsFragment : BaseMenuAnimFragment(), RemoveTransactionDial
 
     override fun onRemoveTransaction(transaction: Transaction) {
         viewModel.delete(transaction)
-        findNavController().navigate(
-            R.id.action_TransactionDetailsFragment_to_TransactionListFragment
-        )
+        findNavController().popBackStack()
     }
 
     private fun getParcelable(): Transaction? =

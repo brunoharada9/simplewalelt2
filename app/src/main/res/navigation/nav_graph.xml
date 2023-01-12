@@ -3,30 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/TransactionListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/TransactionListFragment"
         android:name="br.com.tolive.simplewallet.app.ui.TransactionListFragment"
         android:label="@string/transaction_list_fragment_label"
         tools:layout="@layout/fragment_transaction_list">
 
         <action
             android:id="@+id/action_TransactionListFragment_to_TransactionDetailsFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/TransactionDetailsFragment" />
 
         <action
             android:id="@+id/action_refresh_TransactionListFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/TransactionListFragment"
+            app:popUpTo="@id/TransactionListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/TransactionDetailsFragment"
         android:name="br.com.tolive.simplewallet.app.ui.TransactionDetailsFragment"
         android:label="@string/transaction_details_fragment_label"
         tools:layout="@layout/fragment_transaction_details">
 
         <action
             android:id="@+id/action_TransactionDetailsFragment_to_TransactionListFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/TransactionListFragment" />
     </fragment>
 </navigation>
