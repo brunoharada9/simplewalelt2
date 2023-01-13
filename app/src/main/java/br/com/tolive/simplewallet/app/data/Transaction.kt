@@ -10,26 +10,30 @@ import java.time.LocalDate
 @Entity(tableName = "transactions")
 data class Transaction(
     @PrimaryKey(autoGenerate = true) val transactionId: Int,
-    @ColumnInfo(name = "value") val value: Double,
-    @ColumnInfo(name = "type") val type: Int,
-    @ColumnInfo(name = "description") val description: String?,
-    @ColumnInfo(name = "day") val day: Int,
-    @ColumnInfo(name = "month") val month: Int,
-    @ColumnInfo(name = "year") val year: Int
+    @ColumnInfo(name = "value") var value: Double,
+    @ColumnInfo(name = "type") var type: Int,
+    @ColumnInfo(name = "description") var description: String?,
+    @ColumnInfo(name = "day") var day: Int,
+    @ColumnInfo(name = "month") var month: Int,
+    @ColumnInfo(name = "year") var year: Int
 ) : Parcelable {
     constructor(value: Double, type: Int, description: String, transactionDate: Date) :
-            this(0, value, type, description,
-                transactionDate.day, transactionDate.month, transactionDate.year) {
-                this.transactionDate = transactionDate
-            }
+            this(
+                0, value, type, description,
+                transactionDate.day, transactionDate.month, transactionDate.year
+            ) {
+        this.transactionDate = transactionDate
+    }
 
     var transactionDate: Date
-        get() { return Date(day, month, year) }
+        get() {
+            return Date(day, month, year)
+        }
         set(value) {}
 
-    class Date (val day: Int, val month: Int, val year: Int) {
+    class Date(val day: Int, val month: Int, val year: Int) {
         override fun toString(): String {
-            return LocalDate.of(year, (month+1), day).toString()
+            return LocalDate.of(year, (month + 1), day).toString()
         }
     }
 
@@ -77,5 +81,14 @@ data class Transaction(
                 " [value]" + value.toString() +
                 " [type]" + type +
                 " [date]" + transactionDate.toString()
+    }
+
+    fun copyValues(tempTransaction: Transaction) {
+        this.description = tempTransaction.description
+        this.value = tempTransaction.value
+        this.value = tempTransaction.value
+        this.year = tempTransaction.year
+        this.month = tempTransaction.month
+        this.day = tempTransaction.day
     }
 }

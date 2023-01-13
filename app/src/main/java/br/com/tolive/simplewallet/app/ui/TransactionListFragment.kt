@@ -1,10 +1,12 @@
 package br.com.tolive.simplewallet.app.ui
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -71,6 +73,15 @@ class TransactionListFragment : BaseMenuAnimFragment(), MainActivity.OnMainActiv
         binding.root.doOnPreDraw { startPostponedEnterTransition() }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val inputMethodManager: InputMethodManager =
+            mainActivity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (mainActivity.currentFocus != null) {
+            inputMethodManager.hideSoftInputFromWindow(mainActivity.currentFocus!!.windowToken, 0)
+        }
     }
 
     override fun onDestroyView() {

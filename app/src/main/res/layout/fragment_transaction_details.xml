@@ -1,65 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/transaction_card"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transaction_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/margin_normal"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".ui.TransactionDetailsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/transaction_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_normal"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:context=".ui.TransactionDetailsFragment">
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        android:gravity="center_vertical">
 
         <RelativeLayout
-            android:id="@+id/transaction_background"
+            android:id="@+id/icons_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/green"
-            android:gravity="center_vertical">
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/transaction_description"
-                style="@style/TransactionListItemTextStyle"
+            <ImageView
+                android:id="@+id/change_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:src="@android:drawable/ic_menu_rotate"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignBottom="@id/divisor"/>
+                android:contentDescription="@string/change_type" />
 
-            <View
-                android:id="@+id/divisor"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_separator"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true"
-                style="@style/ViewDivisor"
-                android:layout_alignTop="@+id/transaction_date"/>
-
-            <TextView
-                android:id="@+id/transaction_date"
-                style="@style/TransactionListItemTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_small"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"/>
-
-            <TextView
-                android:id="@+id/transaction_value"
-                style="@style/TransactionListItemTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_small"
-                android:gravity="end"
-                android:layout_alignStart="@id/transaction_date"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"/>
         </RelativeLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/transaction_description"
+            style="@style/TransactionListItemTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/divisor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icons_layout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <EditText
+            android:id="@+id/transaction_edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="top|start"
+            android:hint="@string/add_transaction_dialog_text_description"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/divisor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icons_layout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <View
+            android:id="@+id/divisor"
+            style="@style/ViewDivisor"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_separator"
+            app:layout_constraintBottom_toTopOf="@id/transaction_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/transaction_date"
+            style="@style/TransactionListItemTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:paddingBottom="@dimen/margin_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!--EditText
+            android:id="@+id/transaction_edit_date"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"
+            android:importantForAutofill="no"
+            android:inputType="date"/-->
+
+        <TextView
+            android:id="@+id/transaction_value"
+            style="@style/TransactionListItemTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:paddingBottom="@dimen/margin_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/transaction_edit_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:hint="@string/add_transaction_dialog_text_value"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:paddingBottom="@dimen/margin_small"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -16,6 +16,7 @@ open class BaseMenuAnimFragment : Fragment() {
 
     protected lateinit var mainActivity: MainActivity
     protected var menuRes: Int = R.menu.menu_transaction_list
+    protected lateinit var menu: Menu
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,23 +27,30 @@ open class BaseMenuAnimFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(menuRes, menu)
+        this.menu = menu
 
-        var position = 0
-        for (menuItem in menu) {
-            animateMenuOption(
-                menu,
-                mainActivity,
-                menuItem.icon,
-                MENU_PADDING * (menu.size() - position),
-                position
-            )
-            position++
-        }
+        animateAllVisibleMenuOptions()
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun animateMenuOption(
+    fun animateAllVisibleMenuOptions() {
+        var position = 0
+        for (menuItem in menu) {
+            if (menuItem.isVisible) {
+                animateMenuOption(
+                    menu,
+                    mainActivity,
+                    menuItem.icon,
+                    MENU_PADDING * (menu.size() - position),
+                    position
+                )
+            }
+            position++
+        }
+    }
+
+    fun animateMenuOption(
         menu: Menu,
         activity: MainActivity,
         icon: Drawable?,
@@ -70,7 +78,7 @@ open class BaseMenuAnimFragment : Fragment() {
     }
 
     companion object {
-        private const val MENU_ANIM_DURATION: Long = 200
-        private const val MENU_PADDING: Int = 12
+        const val MENU_ANIM_DURATION: Long = 150
+        const val MENU_PADDING: Int = 12
     }
 }

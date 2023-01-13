@@ -7,6 +7,7 @@
     <!-- Strings used for fragments for navigation -->
     <string name="transaction_list_fragment_label">Transações</string>
     <string name="transaction_details_fragment_label">Detalhes</string>
+    <string name="transaction_details_fragment_label_update">Atualizar</string>
 
     <!-- Strings for add_transaction_dialog -->
     <string name="add_transaction_dialog_title">Adicionar</string>
@@ -34,5 +35,6 @@
 
     <!-- String for Summary layout -->
     <string name="summary_balance">Saldo</string>
+    <string name="change_type">Mudar tipo</string>
 
 </resources>
