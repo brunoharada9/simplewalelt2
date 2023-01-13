@@ -86,7 +86,7 @@ data class Transaction(
     fun copyValues(tempTransaction: Transaction) {
         this.description = tempTransaction.description
         this.value = tempTransaction.value
-        this.value = tempTransaction.value
+        this.type = tempTransaction.type
         this.year = tempTransaction.year
         this.month = tempTransaction.month
         this.day = tempTransaction.day
